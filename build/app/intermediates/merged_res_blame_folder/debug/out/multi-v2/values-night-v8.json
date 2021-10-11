@@ -1,25 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/owner/Documents/Code/take_home_project/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/owner/Documents/Code/books_app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/owner/Documents/Code/take_home_project/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/owner/Documents/Code/books_app/android/app/src/main/res/values-night/styles.xml",
                     "from": {
-                        "startLines": "3,14",
+                        "startLines": "3,15",
                         "startColumns": "4,4",
-                        "startOffsets": "172,815",
-                        "endLines": "7,16",
+                        "startOffsets": "172,873",
+                        "endLines": "8,17",
                         "endColumns": "12,12",
-                        "endOffsets": "464,979"
+                        "endOffsets": "522,1037"
                     },
                     "to": {
-                        "startLines": "2,7",
+                        "startLines": "2,8",
                         "startColumns": "4,4",
-                        "startOffsets": "55,352",
-                        "endLines": "6,9",
+                        "startOffsets": "55,410",
+                        "endLines": "7,10",
                         "endColumns": "12,12",
-                        "endOffsets": "347,516"
+                        "endOffsets": "405,574"
                     }
                 }
             ]
