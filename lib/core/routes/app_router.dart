@@ -9,7 +9,7 @@ class AppRouter {
     switch (settings.name) {
       case '/':
         return _buildPage(
-          LoginScreen(),
+          RegisterScreen(),
         );
       case LoginScreen.routeName:
         return _buildPage(LoginScreen());

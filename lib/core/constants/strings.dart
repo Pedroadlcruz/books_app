@@ -4,9 +4,25 @@ class Strings {
 
   // Register
 
-  static const signUpBtn = "Sign Up";
+  static const wellcome = "Wellcome";
+  static const signUp = "Sign Up";
+  static const signUpWithGoogle = "Sign up with Google";
+  static const signUpMsj =
+      "Please provide following details for your new account";
 
+  static const fullName = "Full Name";
+  static const hintFullName = "John Doe";
+  static const email = "Email";
+  static const hintEmail = "john.doe@gmail.com";
+  static const password = "Password";
+  static const hintPassword = "********";
+
+  static const byClickMsj = "By clicking start, you agree to our ";
+  static const privacyPolice = "Privacy Policy";
+  static const our = " our ";
+  static const termsAndCOnditions = "Terms and Conditions";
   static const googleBtn = "Sign up with Google";
 
-  static const iHaveAccountBtn = "I have an account";
+  static const alreadyhaveAnAccount = "Already have an account? - ";
+  static const login = "Log In";
 }

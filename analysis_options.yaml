@@ -3,15 +3,15 @@ include: package:lint/analysis_options.yaml
 linter:
   rules: 
 
-    
+   always_put_required_named_parameters_first: false  
 analyzer:
  
   errors:
-    argument_type_not_assignable: warning
-    invalid_assignment: warning
-    leading_newlines_in_multiline_strings: ignore
-    always_specify_types: ignore
-    sort_pub_dependencies: ignore
-    sort_child_properties_last: ignore
-    prefer_const_literals_to_create_immutables: ignore
-    prefer_if_elements_to_conditional_expressions: ignore
+   argument_type_not_assignable: warning
+   invalid_assignment: warning
+   leading_newlines_in_multiline_strings: ignore
+   always_specify_types: ignore
+   sort_pub_dependencies: ignore
+   sort_child_properties_last: ignore
+   prefer_const_literals_to_create_immutables: ignore
+   prefer_if_elements_to_conditional_expressions: ignore
