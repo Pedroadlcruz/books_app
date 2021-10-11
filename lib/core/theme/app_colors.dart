@@ -1,8 +1,7 @@
-// import 'dart:ui';
-
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class AppColors {
-  static const primaryColor = Colors.orangeAccent;
-  static const secundaryColor = Colors.blueGrey;
+  static const primaryColor = Color(0xff0074FD);
+  static const secundaryColor = Color(0xff1C1939);
+  static const grayColor = Color.fromRGBO(28, 25, 57, 0.8);
 }

@@ -2,8 +2,8 @@ import 'package:sizer/sizer.dart';
 export 'package:sizer/sizer.dart';
 
 extension ResponsiveCalculation on num {
-  static final double _designHeight = 844.0;
-  static final double _designWidth = 390.0;
+  static final double _designHeight = 896.0;
+  static final double _designWidth = 414.0;
 
   ///
   ///Returns the percent [Height] based on the design height reference
