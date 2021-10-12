@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 
 class AppRouter {
@@ -15,6 +16,9 @@ class AppRouter {
         return _buildPage(LoginScreen());
       case RegisterScreen.routeName:
         return _buildPage(RegisterScreen());
+      case ForgotPasswordScreen.routeName:
+        return _buildPage(ForgotPasswordScreen());
+
       default:
         return PageRouteBuilder(
           pageBuilder: (_, __, ___) => Scaffold(

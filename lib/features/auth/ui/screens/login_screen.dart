@@ -4,6 +4,7 @@ import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/utils/input_decorations.dart';
 import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -89,8 +90,9 @@ class _LoginForm extends StatelessWidget {
             ),
             SizedBox(height: 49.dH),
             InkWell(
-                onTap: () {},
-                child: Text(Strings.forgotPassword, style: TextStyles.text)),
+                onTap: () => Navigator.pushNamed(
+                    context, ForgotPasswordScreen.routeName),
+                child: Text(Strings.forgotPasswordBtn, style: TextStyles.text)),
             SizedBox(height: 38.dH),
             ElevatedButton(
               style: ElevatedButton.styleFrom(

@@ -23,10 +23,16 @@ class Strings {
   static const termsAndCOnditions = "Terms and Conditions";
   static const googleBtn = "Sign up with Google";
 
+  //Login
   static const alreadyhaveAnAccount = "Already have an account? - ";
   static const login = "Log In";
   static const loginWithGoogle = "Log in with Google";
   static const loginMsj = "Welcome Back!";
-  static const forgotPassword = "Forgot Password?";
+  static const forgotPasswordBtn = "Forgot Password?";
   static const dontHaveAnAccount = "Don’t have an account? - ";
+  //Forgot Password
+  static const forgotPassword = "Forgot Password";
+  static const forgotPasswordMsj =
+      "Please enter your email. We will send you a email to reset your password.";
+  static const sendBtn = "Send";
 }
