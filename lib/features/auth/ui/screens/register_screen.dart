@@ -4,6 +4,7 @@ import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/utils/input_decorations.dart';
 import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/user_terms.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -30,16 +31,22 @@ class RegisterScreen extends StatelessWidget {
             SizedBox(height: 38.dH),
             const _SignUpForm(),
             // SizedBox(height: 19.dH),
-            RichText(
-              text: TextSpan(
-                text: Strings.alreadyhaveAnAccount,
-                children: [
-                  TextSpan(
-                    text: Strings.login,
-                    style: TextStyles.blueText.copyWith(fontSize: 16.fS),
-                  ),
-                ],
-                style: TextStyles.text.copyWith(fontSize: 16.fS),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginScreen.routeName, (route) => false);
+              },
+              child: RichText(
+                text: TextSpan(
+                  text: Strings.alreadyhaveAnAccount,
+                  children: [
+                    TextSpan(
+                      text: Strings.login,
+                      style: TextStyles.blueText.copyWith(fontSize: 16.fS),
+                    ),
+                  ],
+                  style: TextStyles.text.copyWith(fontSize: 16.fS),
+                ),
               ),
             ),
           ],

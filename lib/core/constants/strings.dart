@@ -25,4 +25,8 @@ class Strings {
 
   static const alreadyhaveAnAccount = "Already have an account? - ";
   static const login = "Log In";
+  static const loginWithGoogle = "Log in with Google";
+  static const loginMsj = "Welcome Back!";
+  static const forgotPassword = "Forgot Password?";
+  static const dontHaveAnAccount = "Don’t have an account? - ";
 }
