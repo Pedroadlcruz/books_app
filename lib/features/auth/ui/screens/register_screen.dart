@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
@@ -114,8 +115,10 @@ class _SignUpForm extends StatelessWidget {
               onPressed: () {},
             ),
             SizedBox(height: 70.dH),
-            OutlinedButton(
-              child: Text(
+            OutlinedButton.icon(
+              icon: const FaIcon(FontAwesomeIcons.google,
+                  color: AppColors.primaryColor),
+              label: Text(
                 Strings.signUpWithGoogle,
                 style: TextStyles.blueText,
               ),
