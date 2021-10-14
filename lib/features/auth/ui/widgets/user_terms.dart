@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
@@ -17,6 +20,8 @@ class UserTerms extends StatelessWidget {
               TextSpan(
                 text: Strings.privacyPolice,
                 style: _underlineStyle,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => log('$Strings.privacyPolice clicked'),
               ),
             ],
             style: TextStyles.text.copyWith(fontSize: 13.fS),
