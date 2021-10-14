@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 
@@ -13,9 +14,19 @@ class AuthWrapper extends StatelessWidget {
     if (appUser.isEmpty) {
       return const LoginScreen();
     }
-    return const Scaffold(
-      body: Center(
-        child: Text('Home Screem'),
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Home Screem'),
+          SizedBox(
+            height: 100,
+            width: double.infinity,
+          ),
+          TextButton(
+              onPressed: () => context.read<AuthBloc>().logOut(),
+              child: Text('Cerrar Sesion'))
+        ],
       ),
     );
   }

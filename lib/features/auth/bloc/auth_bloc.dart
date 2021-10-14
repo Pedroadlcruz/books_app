@@ -9,7 +9,7 @@ class AuthBloc extends ChangeNotifier {
   AuthBloc({required AuthRepositoryImpl authRepository})
       : _authRepository = authRepository;
 
-  String errorMsj = '';
+  String errorMsg = '';
 
   Stream<User> get authStatusChanges => _authRepository.user;
 
@@ -17,7 +17,7 @@ class AuthBloc extends ChangeNotifier {
     try {
       await _authRepository.logOut();
     } on LogOutFailure {
-      errorMsj = 'An unknown failure occurred.';
+      errorMsg = 'An unknown failure occurred.';
       notifyListeners();
     }
   }

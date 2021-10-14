@@ -10,13 +10,13 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return _buildPage(AuthWrapper());
+        return _buildPage(const AuthWrapper());
       case LoginScreen.routeName:
-        return _buildPage(LoginScreen());
+        return _buildPage(const LoginScreen());
       case RegisterScreen.routeName:
-        return _buildPage(RegisterScreen());
+        return _buildPage(const RegisterScreen());
       case ForgotPasswordScreen.routeName:
-        return _buildPage(ForgotPasswordScreen());
+        return _buildPage(const ForgotPasswordScreen());
 
       default:
         return PageRouteBuilder(
@@ -41,6 +41,4 @@ class AppRouter {
       );
     }
   }
-
-  void dispose() {}
 }
