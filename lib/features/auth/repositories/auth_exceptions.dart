@@ -52,7 +52,7 @@ class LogInWithEmailAndPasswordFailure implements Exception {
     switch (code) {
       case 'invalid-email':
         return const LogInWithEmailAndPasswordFailure(
-          'Email is not valid or badly formatted.',
+          'Incorrect email or password, please try again.',
         );
       case 'user-disabled':
         return const LogInWithEmailAndPasswordFailure(
@@ -64,7 +64,11 @@ class LogInWithEmailAndPasswordFailure implements Exception {
         );
       case 'wrong-password':
         return const LogInWithEmailAndPasswordFailure(
-          'Incorrect password, please try again.',
+          'Incorrect email or password, please try again.',
+        );
+      case 'too-many-requests':
+        return const LogInWithEmailAndPasswordFailure(
+          'Too many request, please try forgot password.',
         );
       default:
         return const LogInWithEmailAndPasswordFailure();

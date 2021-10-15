@@ -10,6 +10,7 @@ import 'package:take_home_project/core/utils/input_decorations.dart';
 import 'package:take_home_project/core/utils/text_styles.dart';
 import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
+import 'package:take_home_project/core/utils/app_functions.dart';
 import 'screens.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -88,11 +89,17 @@ class _LoginForm extends StatelessWidget {
             ),
             SizedBox(height: 22.dH),
             TextFormField(
-              obscureText: true,
+              obscureText: loginBloc.obscureText,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecorations.authInputDecoration(
                 hintText: Strings.password,
                 labelText: Strings.password,
+                suffix: InkWell(
+                  onTap: () => loginBloc.toggleVisibility(),
+                  child: Icon(loginBloc.obscureText
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                ),
               ),
               onChanged: (value) => loginBloc.password = value,
               validator: (password) => password!.isPasswordValid,
@@ -108,10 +115,21 @@ class _LoginForm extends StatelessWidget {
                 minimumSize: const Size(310.0, 53.0),
               ),
               child: Text(
-                Strings.login,
+                loginBloc.isLoading ? 'wait' : Strings.login,
                 style: TextStyle(fontSize: 16.0.fS),
               ),
-              onPressed: () => context.read<LoginBloc>().onLoginRequest(),
+              onPressed: loginBloc.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      if (!loginBloc.isValidForm()) return;
+                      final success =
+                          await context.read<LoginBloc>().onLoginRequest();
+                      if (!success) {
+                        buildScaffoldMessenger(
+                            context: context, text: loginBloc.errorMsg);
+                      }
+                    },
             ),
             SizedBox(height: 70.dH),
             OutlinedButton.icon(

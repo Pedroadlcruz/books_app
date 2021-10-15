@@ -27,22 +27,28 @@ class AuthRepositoryImpl implements AuthRepository {
     });
   }
 
-  /// Creates a new user with the provided [email] and [password].
+  /// Creates a new user with the provided [name], [email] and [password].
   ///
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
   @override
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+          email: email, password: password);
+      await updateUserName(name);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }
   }
+
+  Future<void> updateUserName(String name) async =>
+      _firebaseAuth.currentUser!.updateDisplayName(name);
 
   /// Signs in with the provided [email] and [password].
   ///

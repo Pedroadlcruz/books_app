@@ -15,3 +15,4 @@ analyzer:
    sort_child_properties_last: ignore
    prefer_const_literals_to_create_immutables: ignore
    prefer_if_elements_to_conditional_expressions: ignore
+   use_build_context_synchronously: ignore 
