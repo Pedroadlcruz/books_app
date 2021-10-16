@@ -115,7 +115,7 @@ class _LoginForm extends StatelessWidget {
                 minimumSize: const Size(310.0, 53.0),
               ),
               child: Text(
-                loginBloc.isLoading ? 'wait' : Strings.login,
+                Strings.login,
                 style: TextStyle(fontSize: 16.0.fS),
               ),
               onPressed: loginBloc.isLoading

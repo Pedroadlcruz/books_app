@@ -7,6 +7,7 @@ import 'package:take_home_project/core/routes/app_router.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
+import 'package:take_home_project/features/auth/repositories/auth_repository.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 
 class BooksApp extends StatelessWidget {
@@ -20,13 +21,16 @@ class BooksApp extends StatelessWidget {
   final AuthRepositoryImpl _authRepository;
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(
-          create: (_) => AuthBloc(authRepository: _authRepository)),
-      StreamProvider(
-          create: (context) => context.read<AuthBloc>().authStatusChanges,
-          initialData: User.empty),
-    ], child: _AppView());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => AuthBloc(authRepository: _authRepository)),
+        StreamProvider(
+            create: (context) => context.read<AuthBloc>().authStatusChanges,
+            initialData: User.empty),
+      ],
+      child: _AppView(),
+    );
     // return _AppView();
   }
 }

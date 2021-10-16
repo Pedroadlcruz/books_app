@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:take_home_project/features/auth/repositories/auth_exceptions.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 
-class LoginBloc extends ChangeNotifier {
+class SignUpBloc extends ChangeNotifier {
   final AuthRepositoryImpl _authRepository;
 
-  LoginBloc({required AuthRepositoryImpl authRepository})
+  SignUpBloc({required AuthRepositoryImpl authRepository})
       : _authRepository = authRepository;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String email = '';
+  String name = '';
   String password = '';
   String errorMsg = '';
 
@@ -31,16 +32,19 @@ class LoginBloc extends ChangeNotifier {
     return formKey.currentState?.validate() ?? false;
   }
 
-  Future<bool> onLoginRequest() async {
+  Future<bool> onSignUpRequest() async {
     _isLoading = true;
     notifyListeners();
     try {
-      await _authRepository.logInWithEmailAndPassword(
-          email: email, password: password);
+      await _authRepository.signUp(
+        name: name,
+        email: email,
+        password: password,
+      );
       _isLoading = false;
       notifyListeners();
       return true;
-    } on LogInWithEmailAndPasswordFailure catch (e) {
+    } on SignUpWithEmailAndPasswordFailure catch (e) {
       errorMsg = e.message;
       _isLoading = false;
       notifyListeners();

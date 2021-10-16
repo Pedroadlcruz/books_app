@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
+import 'package:take_home_project/core/extensions/validators.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
+import 'package:take_home_project/core/utils/app_functions.dart';
 import 'package:take_home_project/core/utils/input_decorations.dart';
 import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/features/auth/bloc/signup_bloc.dart';
+import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/user_terms.dart';
 
@@ -30,7 +35,10 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 38.dH),
-            const _SignUpForm(),
+            ChangeNotifierProvider(
+              create: (_) => SignUpBloc(authRepository: AuthRepositoryImpl()),
+              child: const _SignUpForm(),
+            ),
             // SizedBox(height: 19.dH),
             TextButton(
               onPressed: () {
@@ -64,20 +72,21 @@ class _SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final signUpBloc = context.watch<SignUpBloc>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 37.dW),
       child: Form(
+        key: signUpBloc.formKey,
         child: Column(
           children: [
             TextFormField(
-              autocorrect: false,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecorations.authInputDecoration(
                 hintText: Strings.hintFullName,
                 labelText: Strings.fullName,
               ),
-              onChanged: (value) => {},
-              validator: (value) {},
+              onChanged: (value) => signUpBloc.name = value,
+              validator: (name) => name!.isNameValid,
             ),
             SizedBox(height: 19.dH),
             TextFormField(
@@ -87,19 +96,25 @@ class _SignUpForm extends StatelessWidget {
                 hintText: Strings.hintEmail,
                 labelText: Strings.email,
               ),
-              onChanged: (value) => {},
-              validator: (value) {},
+              onChanged: (value) => signUpBloc.email = value,
+              validator: (email) => email!.isEmailValid,
             ),
             SizedBox(height: 19.dH),
             TextFormField(
-              obscureText: true,
+              obscureText: signUpBloc.obscureText,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecorations.authInputDecoration(
                 hintText: Strings.password,
                 labelText: Strings.password,
+                suffix: InkWell(
+                  onTap: () => signUpBloc.toggleVisibility(),
+                  child: Icon(signUpBloc.obscureText
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                ),
               ),
-              onChanged: (value) => {},
-              validator: (value) {},
+              onChanged: (value) => signUpBloc.password = value,
+              validator: (password) => password!.isPasswordValid,
             ),
             SizedBox(height: 19.dH),
             UserTerms(),
@@ -112,7 +127,18 @@ class _SignUpForm extends StatelessWidget {
                 Strings.signUp,
                 style: TextStyle(fontSize: 16.0),
               ),
-              onPressed: () {},
+              onPressed: signUpBloc.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      if (!signUpBloc.isValidForm()) return;
+                      final success =
+                          await context.read<SignUpBloc>().onSignUpRequest();
+                      if (!success) {
+                        buildScaffoldMessenger(
+                            context: context, text: signUpBloc.errorMsg);
+                      }
+                    },
             ),
             SizedBox(height: 70.dH),
             OutlinedButton.icon(
