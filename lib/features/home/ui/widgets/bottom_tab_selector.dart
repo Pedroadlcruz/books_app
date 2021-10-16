@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/features/home/bloc/tab_bloc.dart';
@@ -53,7 +54,7 @@ class BottomTabSelector extends StatelessWidget {
   BottomNavigationBarItem _getBarItem(AppBottomTab tab, BuildContext context) {
     String? title;
     Icon? icon;
-    final double iconSize = 6.w;
+    final double iconSize = 8.w;
     if (tab == AppBottomTab.home) {
       icon = Icon(Icons.home, size: iconSize);
       title = Strings.home;
@@ -76,7 +77,10 @@ class BottomTabSelector extends StatelessWidget {
         child: Text(
           title!,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 10.sp),
+          style: GoogleFonts.dmSans(
+            fontWeight: FontWeight.w400,
+            fontSize: 15.fS,
+          ),
         ),
       ),
     );

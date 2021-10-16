@@ -41,4 +41,8 @@ class Strings {
   static const books = "Books";
   static const favorites = "Favorites";
   static const profile = "Profile";
+
+  //Home
+  static const welcome = "Welcome!";
+  static const explore = "Explore";
 }

@@ -16,3 +16,4 @@ analyzer:
    prefer_const_literals_to_create_immutables: ignore
    prefer_if_elements_to_conditional_expressions: ignore
    use_build_context_synchronously: ignore 
+   avoid_classes_with_only_static_members: ignore 
