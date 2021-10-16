@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/auth_wrapper.dart';
-import 'package:take_home_project/features/home/ui/screens/books_screen.dart';
-import 'package:take_home_project/features/home/ui/screens/favorites_screen.dart';
+import 'package:take_home_project/features/books/ui/screens/books_screen.dart';
+import 'package:take_home_project/features/books/ui/screens/favorites_screen.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 import 'package:take_home_project/features/home/ui/screens/profile_screen.dart';
 

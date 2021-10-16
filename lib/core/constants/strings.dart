@@ -45,4 +45,9 @@ class Strings {
   //Home
   static const welcome = "Welcome!";
   static const explore = "Explore";
+
+  //Books
+  static const booksScreenMsj = "Explore thousands of books on the go";
+  static const famousBooks = "Famous Books";
+  static const searchHintTxt = "Search for books...";
 }

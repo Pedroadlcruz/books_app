@@ -8,8 +8,8 @@ import 'package:take_home_project/features/home/bloc/tab_bloc.dart';
 
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/features/home/models/app_bottom_tab.dart';
-import 'package:take_home_project/features/home/ui/screens/books_screen.dart';
-import 'package:take_home_project/features/home/ui/screens/favorites_screen.dart';
+import 'package:take_home_project/features/books/ui/screens/books_screen.dart';
+import 'package:take_home_project/features/books/ui/screens/favorites_screen.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 import 'package:take_home_project/features/home/ui/screens/profile_screen.dart';
 

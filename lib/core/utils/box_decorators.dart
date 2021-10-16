@@ -8,10 +8,10 @@ BoxDecoration get whiteBoxDecoration => BoxDecoration(
       ),
       boxShadow: <BoxShadow>[
         BoxShadow(
-          color: const Color(0xff8A959A).withOpacity(0.15),
+          color: const Color(0xff8A959A).withOpacity(0.20),
           blurRadius: 60,
-          offset: const Offset(0, 30),
-          spreadRadius: 2,
+          // offset: const Offset(0, 0),
+          spreadRadius: 12,
         ),
       ],
     );
