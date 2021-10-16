@@ -7,8 +7,9 @@ import 'package:take_home_project/core/routes/app_router.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
-import 'package:take_home_project/features/auth/repositories/auth_repository.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
+
+import 'features/home/bloc/tab_bloc.dart';
 
 class BooksApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -25,13 +26,15 @@ class BooksApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
             create: (_) => AuthBloc(authRepository: _authRepository)),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => TabBloc(),
+        ),
         StreamProvider(
             create: (context) => context.read<AuthBloc>().authStatusChanges,
             initialData: User.empty),
       ],
-      child: _AppView(),
+      child: const _AppView(),
     );
-    // return _AppView();
   }
 }
 
@@ -46,10 +49,7 @@ class _AppView extends StatelessWidget {
       builder: (BuildContext context, Orientation orientation,
           DeviceType deviceType) {
         return AnnotatedRegion<SystemUiOverlayStyle>(
-          value: const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.dark,
-          ),
+          value: SystemUiOverlayStyle.dark,
           child: MaterialApp(
             title: 'Take Home Projects',
             debugShowCheckedModeBanner: false,

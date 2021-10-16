@@ -35,4 +35,10 @@ class Strings {
   static const forgotPasswordMsj =
       "Please enter your email. We will send you a email to reset your password.";
   static const sendBtn = "Send";
+
+  //Bottom tab selector
+  static const home = "Home";
+  static const books = "Books";
+  static const favorites = "Favorites";
+  static const profile = "Profile";
 }

@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/auth_wrapper.dart';
+import 'package:take_home_project/features/home/ui/screens/books_screen.dart';
+import 'package:take_home_project/features/home/ui/screens/favorites_screen.dart';
+import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
+import 'package:take_home_project/features/home/ui/screens/profile_screen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -17,7 +21,14 @@ class AppRouter {
         return _buildPage(const RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _buildPage(const ForgotPasswordScreen());
-
+      case HomeScreen.routeName:
+        return _buildTabPage(const HomeScreen());
+      case BooksScreen.routeName:
+        return _buildTabPage(const BooksScreen());
+      case FavoritesScreen.routeName:
+        return _buildTabPage(const FavoritesScreen());
+      case ProfileScreen.routeName:
+        return _buildTabPage(const ProfileScreen());
       default:
         return PageRouteBuilder(
           pageBuilder: (_, __, ___) => Scaffold(
@@ -40,5 +51,13 @@ class AppRouter {
         settings: RouteSettings(name: routeName, arguments: arguments),
       );
     }
+  }
+
+  static Route<dynamic> _buildTabPage(Widget page,
+      {String? routeName, Object? arguments}) {
+    return PageRouteBuilder(
+      pageBuilder: (_, __, ___) => page,
+      settings: RouteSettings(name: routeName, arguments: arguments),
+    );
   }
 }
