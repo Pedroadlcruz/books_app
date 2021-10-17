@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/auth_wrapper.dart';
+import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/screens/books_screen.dart';
 import 'package:take_home_project/features/books/ui/screens/favorites_screen.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
@@ -29,6 +30,9 @@ class AppRouter {
         return _buildTabPage(const FavoritesScreen());
       case ProfileScreen.routeName:
         return _buildTabPage(const ProfileScreen());
+      case BookDetailScreen.routeName:
+        return _buildPage(const BookDetailScreen());
+
       default:
         return PageRouteBuilder(
           pageBuilder: (_, __, ___) => Scaffold(

@@ -6,6 +6,7 @@ import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/utils/box_decorators.dart';
 import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
@@ -43,7 +44,9 @@ class BooksScreen extends StatelessWidget {
                 imageLink:
                     "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
               ),
-              const BookCard(
+              BookCard(
+                onTap: () =>
+                    Navigator.pushNamed(context, BookDetailScreen.routeName),
                 title: 'The More of Less',
                 author: 'Joshua Becker',
                 mainCategory: 'Minimalist',

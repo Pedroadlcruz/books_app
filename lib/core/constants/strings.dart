@@ -50,4 +50,5 @@ class Strings {
   static const booksScreenMsj = "Explore thousands of books on the go";
   static const famousBooks = "Famous Books";
   static const searchHintTxt = "Search for books...";
+  static const bookDetail = "Book detail";
 }

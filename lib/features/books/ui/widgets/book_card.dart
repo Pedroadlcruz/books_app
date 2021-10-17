@@ -5,6 +5,7 @@ import 'package:take_home_project/core/utils/box_decorators.dart';
 import 'package:take_home_project/core/utils/text_styles.dart';
 
 import 'like_btn.dart';
+import 'main_category_label.dart';
 
 class BookCard extends StatelessWidget {
   const BookCard({
@@ -73,19 +74,7 @@ class BookCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 17.dH),
-                    Container(
-                      height: 26.dH,
-                      padding: EdgeInsets.symmetric(horizontal: 13.dW),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffA1DFFC),
-                        borderRadius: BorderRadius.all(Radius.circular(30.dW)),
-                      ),
-                      child: Text(
-                        mainCategory,
-                        style: TextStyles.blueText.copyWith(fontSize: 13.fS),
-                      ),
-                    ),
+                    MainCategoryLabel(mainCategory: mainCategory),
                   ],
                 ),
               ],
