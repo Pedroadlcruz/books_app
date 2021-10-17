@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:take_home_project/core/constants/app_images.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
-import 'package:take_home_project/core/utils/box_decorators.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/box_decorators.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class HomeScreen extends StatelessWidget {

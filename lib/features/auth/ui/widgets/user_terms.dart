@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
 
 class UserTerms extends StatelessWidget {
   @override

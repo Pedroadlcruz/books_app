@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
-import 'package:take_home_project/core/utils/box_decorators.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/box_decorators.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
 
 import 'like_btn.dart';
 import 'main_category_label.dart';

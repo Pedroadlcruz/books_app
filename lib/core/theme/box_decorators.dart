@@ -10,7 +10,6 @@ BoxDecoration get whiteBoxDecoration => BoxDecoration(
         BoxShadow(
           color: const Color(0xff8A959A).withOpacity(0.20),
           blurRadius: 60,
-          // offset: const Offset(0, 0),
           spreadRadius: 12,
         ),
       ],

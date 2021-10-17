@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/extensions/validators.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
-import 'package:take_home_project/core/utils/app_functions.dart';
-import 'package:take_home_project/core/utils/input_decorations.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/input_decorations.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/core/utils/alerts.dart';
+import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/features/auth/bloc/signup_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
@@ -119,14 +121,8 @@ class _SignUpForm extends StatelessWidget {
             SizedBox(height: 19.dH),
             UserTerms(),
             SizedBox(height: 38.dH),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(310.0, 53.0),
-              ),
-              child: const Text(
-                Strings.signUp,
-                style: TextStyle(fontSize: 16.0),
-              ),
+            AppBtn(
+              label: Strings.signUp,
               onPressed: signUpBloc.isLoading
                   ? null
                   : () async {
@@ -135,7 +131,7 @@ class _SignUpForm extends StatelessWidget {
                       final success =
                           await context.read<SignUpBloc>().onSignUpRequest();
                       if (!success) {
-                        buildScaffoldMessenger(
+                        Alerts.buildScaffoldMessenger(
                             context: context, text: signUpBloc.errorMsg);
                       }
                     },

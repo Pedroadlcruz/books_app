@@ -39,7 +39,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await updateUserName(name);
+      await _updateUserName(name);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -47,8 +47,15 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  Future<void> updateUserName(String name) async =>
+  Future<void> _updateUserName(String name) async =>
       _firebaseAuth.currentUser!.updateDisplayName(name);
+
+  Future<void> updateUserPassword(String newPassword) async =>
+      _firebaseAuth.currentUser!.updatePassword(newPassword);
+
+  Future<void> _updateUserPhoto(String? photoURL) async =>
+      _firebaseAuth.currentUser!.updatePhotoURL(photoURL ??
+          'https://cdn.pngsumo.com/sunglasses-png-source-smiley-face-emoji-transparent-png-emoji-smiley-face-png-920_705.png');
 
   /// Signs in with the provided [email] and [password].
   ///

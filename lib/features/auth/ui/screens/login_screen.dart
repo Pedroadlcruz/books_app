@@ -6,11 +6,13 @@ import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/extensions/validators.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
-import 'package:take_home_project/core/utils/input_decorations.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/input_decorations.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/core/utils/alerts.dart';
+import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
-import 'package:take_home_project/core/utils/app_functions.dart';
+
 import 'screens.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -110,14 +112,8 @@ class _LoginForm extends StatelessWidget {
                     context, ForgotPasswordScreen.routeName),
                 child: Text(Strings.forgotPasswordBtn, style: TextStyles.text)),
             SizedBox(height: 38.dH),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(310.0, 53.0),
-              ),
-              child: Text(
-                Strings.login,
-                style: TextStyle(fontSize: 16.0.fS),
-              ),
+            AppBtn(
+              label: Strings.login,
               onPressed: loginBloc.isLoading
                   ? null
                   : () async {
@@ -126,7 +122,7 @@ class _LoginForm extends StatelessWidget {
                       final success =
                           await context.read<LoginBloc>().onLoginRequest();
                       if (!success) {
-                        buildScaffoldMessenger(
+                        Alerts.buildScaffoldMessenger(
                             context: context, text: loginBloc.errorMsg);
                       }
                     },

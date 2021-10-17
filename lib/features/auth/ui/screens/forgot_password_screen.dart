@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
-import 'package:take_home_project/core/utils/input_decorations.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/input_decorations.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/core/widgets/app_btn.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -57,14 +58,8 @@ class _ForgotPasswordForm extends StatelessWidget {
               validator: (value) {},
             ),
             SizedBox(height: 22.dH),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(330.0, 53.0),
-              ),
-              child: const Text(
-                Strings.sendBtn,
-                style: TextStyle(fontSize: 16.0),
-              ),
+            AppBtn(
+              label: Strings.sendBtn,
               onPressed: () {},
             ),
             SizedBox(height: 70.dH),

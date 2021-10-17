@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:take_home_project/core/theme/app_colors.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
 
 class InputDecorations {
   static InputDecoration authInputDecoration({

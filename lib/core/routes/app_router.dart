@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:take_home_project/features/auth/ui/screens/change_password.dart';
 import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/auth_wrapper.dart';
@@ -22,6 +23,8 @@ class AppRouter {
         return _buildPage(const RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _buildPage(const ForgotPasswordScreen());
+      case ChangePasswordScreen.routeName:
+        return _buildPage(const ChangePasswordScreen());
       case HomeScreen.routeName:
         return _buildTabPage(const HomeScreen());
       case BooksScreen.routeName:

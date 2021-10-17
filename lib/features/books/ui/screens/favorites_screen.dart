@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
-import 'package:take_home_project/core/utils/text_styles.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';

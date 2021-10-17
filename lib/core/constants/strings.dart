@@ -51,4 +51,14 @@ class Strings {
   static const famousBooks = "Famous Books";
   static const searchHintTxt = "Search for books...";
   static const bookDetail = "Book detail";
+  // Profile
+  static const logout = "Logout";
+  static const logoutConfirmationMsg = "Are you sure you want to logout";
+  static const changePassword = "Change password";
+  static const deleteAccount = "Delete account";
+  static const deleteAccountConfirmationMsg =
+      "Are you sure you want to delete account";
+  //Change password
+  static const newPassword = "New password";
+  static const confirmPassword = "Confirm password";
 }
