@@ -5,6 +5,7 @@ import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/utils/alerts.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/widgets/app_btn.dart';
+import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/ui/screens/change_password.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
@@ -16,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appUser = context.select((AuthBloc user) => user.currentUser);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -26,22 +28,17 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyles.mainLabel.copyWith(fontSize: 20.fS),
           ),
           SizedBox(height: 49.dH),
-          Container(
-            height: 158.dW,
-            width: 158.dW,
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(158.dW)),
-              child: Image.network(
-                'https://cdn.pngsumo.com/sunglasses-png-source-smiley-face-emoji-transparent-png-emoji-smiley-face-png-920_705.png',
-                height: 158.dW,
-                width: 158.dW,
-                fit: BoxFit.cover,
-              ),
+          UserProfileImage(appUser: appUser),
+          SizedBox(height: 30.dH),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.dW),
+            child: Text(
+              appUser.name ?? " ",
+              style: TextStyles.mainLabel.copyWith(fontSize: 24.fS),
+              textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(height: 30.dH),
-          Text('Adam', style: TextStyles.mainLabel.copyWith(fontSize: 24.fS)),
+          Text(appUser.email ?? " ", style: TextStyles.blueText),
           SizedBox(height: 90.dH),
           AppBtn(
             label: Strings.changePassword,

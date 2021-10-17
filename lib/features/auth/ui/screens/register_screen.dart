@@ -10,9 +10,11 @@ import 'package:take_home_project/core/theme/input_decorations.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/utils/alerts.dart';
 import 'package:take_home_project/core/widgets/app_btn.dart';
+import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
 import 'package:take_home_project/features/auth/bloc/signup_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
+import 'package:take_home_project/features/auth/ui/widgets/google_auth_btn.dart';
 import 'package:take_home_project/features/auth/ui/widgets/user_terms.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
@@ -38,10 +40,20 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 38.dH),
-            ChangeNotifierProvider(
-              create: (_) => SignUpBloc(authRepository: AuthRepositoryImpl()),
+            MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (_) =>
+                      SignUpBloc(authRepository: AuthRepositoryImpl()),
+                ),
+                ChangeNotifierProvider(
+                  create: (_) =>
+                      LoginBloc(authRepository: AuthRepositoryImpl()),
+                ),
+              ],
               child: const _SignUpForm(),
             ),
+
             // SizedBox(height: 19.dH),
             TextButton(
               onPressed: () {
@@ -76,6 +88,7 @@ class _SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signUpBloc = context.watch<SignUpBloc>();
+    final loginBloc = context.watch<LoginBloc>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 37.dW),
       child: Form(
@@ -141,20 +154,24 @@ class _SignUpForm extends StatelessWidget {
                     },
             ),
             SizedBox(height: 70.dH),
-            OutlinedButton.icon(
-              icon: const FaIcon(FontAwesomeIcons.google,
-                  color: AppColors.primaryColor),
-              label: Text(
-                Strings.signUpWithGoogle,
-                style: TextStyles.blueText,
-              ),
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size(310.0, 53.0),
-                primary: Colors.white,
-                side: const BorderSide(color: AppColors.primaryColor),
-              ),
-              onPressed: () {},
+            GoogleAuthBtn(
+              loginBloc: loginBloc,
+              label: Strings.signUpWithGoogle,
             ),
+            // OutlinedButton.icon(
+            //   icon: const FaIcon(FontAwesomeIcons.google,
+            //       color: AppColors.primaryColor),
+            //   label: Text(
+            //     Strings.signUpWithGoogle,
+            //     style: TextStyles.blueText,
+            //   ),
+            //   style: OutlinedButton.styleFrom(
+            //     minimumSize: const Size(310.0, 53.0),
+            //     primary: Colors.white,
+            //     side: const BorderSide(color: AppColors.primaryColor),
+            //   ),
+            //   onPressed: () {},
+            // ),
             SizedBox(height: 19.dH),
           ],
         ),

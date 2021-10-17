@@ -6,7 +6,7 @@ class Strings {
 
   static const wellcome = "Wellcome";
   static const signUp = "Sign Up";
-  static const signUpWithGoogle = "Sign up with Google";
+  static const signUpWithGoogle = "Continue with Google";
   static const signUpMsj =
       "Please provide following details for your new account";
 

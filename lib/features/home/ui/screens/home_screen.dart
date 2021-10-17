@@ -5,6 +5,7 @@ import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
@@ -16,26 +17,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _HomeBody();
-    // final appUser = context.select((AuthBloc user) => user.currentUser);
-    // if (appUser.isEmpty || appUser == null) {
-    //   return const Center(child: CircularProgressIndicator());
-    // } else {
-    //   return const _HomeBody();
-    // }
-
-    // return StreamBuilder<Object>(
-    //   stream: context.watch<AuthBloc>().user,
-    //   builder: (context, AsyncSnapshot snapshot) {
-    //     if (snapshot.hasData) {
-    //       if ((snapshot.data! as User).isNotEmpty) {
-    //         return const _HomeBody();
-    //       }
-    //     } else {
-    //       return const Center(child: CircularProgressIndicator());
-    //     }
-    //     return const Center(child: CircularProgressIndicator());
-    //   },
-    // );
   }
 }
 
@@ -54,11 +35,7 @@ class _HomeBody extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 115.dH, width: double.infinity),
-            Image.asset(
-              AppImages.coolEmoji,
-              height: 98.dW,
-              width: 98.dW,
-            ),
+            UserProfileImage(appUser: appUser),
             SizedBox(height: 46.dH),
             Text(Strings.welcome, style: TextStyles.mainLabel),
             Padding(

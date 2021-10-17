@@ -12,6 +12,8 @@ import 'package:take_home_project/core/utils/alerts.dart';
 import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
+import 'package:take_home_project/features/auth/ui/widgets/google_auth_btn.dart';
+import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
 import 'screens.dart';
 
@@ -128,19 +130,9 @@ class _LoginForm extends StatelessWidget {
                     },
             ),
             SizedBox(height: 70.dH),
-            OutlinedButton.icon(
-              icon: const FaIcon(FontAwesomeIcons.google,
-                  color: AppColors.primaryColor),
-              label: Text(
-                Strings.loginWithGoogle,
-                style: TextStyles.blueText,
-              ),
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size(310.0, 53.0),
-                primary: Colors.white,
-                side: const BorderSide(color: AppColors.primaryColor),
-              ),
-              onPressed: () {},
+            GoogleAuthBtn(
+              loginBloc: loginBloc,
+              label: Strings.loginWithGoogle,
             ),
             SizedBox(height: 19.dH),
           ],

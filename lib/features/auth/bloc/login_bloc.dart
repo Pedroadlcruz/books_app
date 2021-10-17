@@ -47,4 +47,20 @@ class LoginBloc extends ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> onLoginWithGoogle() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _authRepository.logInWithGoogle();
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } on LogInWithGoogleFailure catch (e) {
+      errorMsg = e.message;
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+  }
 }
