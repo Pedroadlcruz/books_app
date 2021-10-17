@@ -18,6 +18,7 @@ class BookCard extends StatelessWidget {
     this.onTap,
     this.onLike,
     this.isFavorite = false,
+    this.decoration,
   }) : super(key: key);
   final String title;
   final String author;
@@ -27,6 +28,7 @@ class BookCard extends StatelessWidget {
   final bool isFavorite;
   final void Function()? onTap;
   final void Function()? onLike;
+  final Decoration? decoration;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -37,7 +39,7 @@ class BookCard extends StatelessWidget {
             height: 195.dH,
             width: 340.dW,
             margin: EdgeInsets.only(bottom: 26.dW),
-            decoration: whiteBoxDecoration,
+            decoration: decoration ?? whiteBoxDecoration,
             child: Row(
               children: <Widget>[
                 ClipRRect(
