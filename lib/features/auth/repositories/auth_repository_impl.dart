@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
 
-import 'auth_exceptions.dart';
+import '../../../core/error/auth_exceptions.dart';
 import 'auth_repository.dart';
 
 /// Repository which manages user authentication.

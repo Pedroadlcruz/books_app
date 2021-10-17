@@ -8,6 +8,7 @@ import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
+import 'package:take_home_project/features/books/ui/widgets/books_search_delegate.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class BooksScreen extends StatelessWidget {
@@ -71,30 +72,24 @@ class _SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60.dH,
-      width: 340.dW,
-      decoration: whiteBoxDecoration.copyWith(
-        borderRadius: BorderRadius.all(Radius.circular(50.dW)),
-      ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(width: 28.dW),
-          const Icon(CupertinoIcons.search),
-          SizedBox(width: 18.dW),
-          SizedBox(
-            height: 50.dH,
-            width: 240.dW,
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                hintText: Strings.searchHintTxt,
-                helperStyle: TextStyles.text,
-              ),
-            ),
-          ),
-        ],
+    return InkWell(
+      onTap: () {
+        showSearch(context: context, delegate: BooksSearchDelegate());
+      },
+      child: Container(
+        height: 60.dH,
+        width: 340.dW,
+        decoration: whiteBoxDecoration.copyWith(
+          borderRadius: BorderRadius.all(Radius.circular(50.dW)),
+        ),
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 28.dW),
+            const Icon(CupertinoIcons.search),
+            SizedBox(width: 18.dW),
+            Text(Strings.searchHintTxt, style: TextStyles.text),
+          ],
+        ),
       ),
     );
   }
