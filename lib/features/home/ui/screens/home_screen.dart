@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:take_home_project/core/constants/app_images.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
+import 'package:take_home_project/features/auth/models/user.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,6 +15,39 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const _HomeBody();
+    // final appUser = context.select((AuthBloc user) => user.currentUser);
+    // if (appUser.isEmpty || appUser == null) {
+    //   return const Center(child: CircularProgressIndicator());
+    // } else {
+    //   return const _HomeBody();
+    // }
+
+    // return StreamBuilder<Object>(
+    //   stream: context.watch<AuthBloc>().user,
+    //   builder: (context, AsyncSnapshot snapshot) {
+    //     if (snapshot.hasData) {
+    //       if ((snapshot.data! as User).isNotEmpty) {
+    //         return const _HomeBody();
+    //       }
+    //     } else {
+    //       return const Center(child: CircularProgressIndicator());
+    //     }
+    //     return const Center(child: CircularProgressIndicator());
+    //   },
+    // );
+  }
+}
+
+class _HomeBody extends StatelessWidget {
+  const _HomeBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appUser = context.select((AuthBloc user) => user.currentUser);
+    print(appUser.name);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -25,7 +61,14 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 46.dH),
             Text(Strings.welcome, style: TextStyles.mainLabel),
-            Text('Adam', style: TextStyles.mainLabel),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 36.dW),
+              child: Text(
+                appUser.name ?? " ",
+                style: TextStyles.mainLabel,
+                textAlign: TextAlign.center,
+              ),
+            ),
             SizedBox(height: 82.dH),
             const _HomeCard(
               iconUrl: AppImages.bookIcon,

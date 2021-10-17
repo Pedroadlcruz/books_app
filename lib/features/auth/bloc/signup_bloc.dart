@@ -42,6 +42,7 @@ class SignUpBloc extends ChangeNotifier {
         password: password,
       );
       _isLoading = false;
+
       notifyListeners();
       return true;
     } on SignUpWithEmailAndPasswordFailure catch (e) {

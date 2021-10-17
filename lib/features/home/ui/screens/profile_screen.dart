@@ -7,6 +7,7 @@ import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/ui/screens/change_password.dart';
+import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -53,7 +54,10 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () => Alerts.confirmDialog(
               context: context,
               title: Strings.logoutConfirmationMsg,
-              onYes: () => context.read<AuthBloc>().logOut(),
+              onYes: () async {
+                await context.read<AuthBloc>().logOut();
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
             ),
           ),
           SizedBox(height: 18.dH),

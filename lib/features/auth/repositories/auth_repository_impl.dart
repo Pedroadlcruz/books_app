@@ -21,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
   ///
   /// Emits [User.empty] if the user is not authenticated.
   Stream<User> get user {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+    return _firebaseAuth.userChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       return user;
     });
@@ -40,6 +40,8 @@ class AuthRepositoryImpl implements AuthRepository {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       await _updateUserName(name);
+      await _updateUserPhoto();
+      await _firebaseAuth.currentUser!.sendEmailVerification();
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -53,7 +55,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> updateUserPassword(String newPassword) async =>
       _firebaseAuth.currentUser!.updatePassword(newPassword);
 
-  Future<void> _updateUserPhoto(String? photoURL) async =>
+  Future<void> _updateUserPhoto({String? photoURL}) async =>
       _firebaseAuth.currentUser!.updatePhotoURL(photoURL ??
           'https://cdn.pngsumo.com/sunglasses-png-source-smiley-face-emoji-transparent-png-emoji-smiley-face-png-920_705.png');
 

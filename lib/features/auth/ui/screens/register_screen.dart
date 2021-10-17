@@ -14,6 +14,7 @@ import 'package:take_home_project/features/auth/bloc/signup_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/user_terms.dart';
+import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -130,7 +131,10 @@ class _SignUpForm extends StatelessWidget {
                       if (!signUpBloc.isValidForm()) return;
                       final success =
                           await context.read<SignUpBloc>().onSignUpRequest();
-                      if (!success) {
+                      if (success) {
+                        Navigator.pushReplacementNamed(
+                            context, HomeScreen.routeName);
+                      } else {
                         Alerts.buildScaffoldMessenger(
                             context: context, text: signUpBloc.errorMsg);
                       }

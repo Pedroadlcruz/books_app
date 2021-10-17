@@ -29,9 +29,6 @@ class BooksApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => TabBloc(),
         ),
-        StreamProvider(
-            create: (context) => context.read<AuthBloc>().authStatusChanges,
-            initialData: User.empty),
       ],
       child: const _AppView(),
     );
