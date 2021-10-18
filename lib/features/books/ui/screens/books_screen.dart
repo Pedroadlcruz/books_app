@@ -8,6 +8,7 @@ import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
+import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/repositories/books_repository_impl.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
@@ -20,10 +21,12 @@ class BooksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
+    return ChangeNotifierProvider(
+      create: (BuildContext context) =>
+          BooksBloc(booksRepository: BooksRepositoryImpl()),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 36.dW),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,42 +35,53 @@ class BooksScreen extends StatelessWidget {
               Text(Strings.booksScreenMsj,
                   style: TextStyles.mainLabel.copyWith(fontSize: 30.fS)),
               SizedBox(height: 35.dH),
-              ChangeNotifierProvider(
-                  create: (BuildContext context) =>
-                      BooksBloc(booksRepository: BooksRepositoryImpl()),
-                  child: const _SearchField()),
+              const _SearchField(),
               SizedBox(height: 46.dH),
               Text(Strings.famousBooks,
                   style: TextStyles.mainLabel.copyWith(fontSize: 24.fS)),
               SizedBox(height: 26.dH),
-              BookCard(
-                onLike: () => print(' Tap Like'),
-                onTap: () => print(' Tap Card'),
-                title: 'The More of Less',
-                author: 'Joshua Becker',
-                mainCategory: 'Minimalist',
-                averageRating: '4.5',
-                isFavorite: false,
-                imageLink:
-                    "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
-              ),
-              BookCard(
-                onTap: () =>
-                    Navigator.pushNamed(context, BookDetailScreen.routeName),
-                title: 'The More of Less',
-                author: 'Joshua Becker',
-                mainCategory: 'Minimalist',
-                averageRating: '4.5',
-                isFavorite: true,
-                imageLink:
-                    "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
-              ),
+              const _FamousBooks(),
             ],
           ),
         ),
+        bottomNavigationBar: const BottomTabSelector(),
       ),
-      bottomNavigationBar: const BottomTabSelector(),
     );
+  }
+}
+
+class _FamousBooks extends StatelessWidget {
+  const _FamousBooks({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final booksBloc = context.watch<BooksBloc>();
+    return Expanded(
+        child: FutureBuilder(
+      future: booksBloc.getFamousBooks(),
+      builder: (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: snapshot.data!.length,
+            itemBuilder: (BuildContext context, int index) {
+              final Book book = snapshot.data![index];
+              return BookCard(
+                book: book,
+                onLike: () => print(' Tap Like'),
+                onTap: () => Navigator.pushNamed(
+                    context, BookDetailScreen.routeName,
+                    arguments: book),
+              );
+            },
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    ));
   }
 }
 

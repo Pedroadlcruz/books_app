@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
@@ -30,6 +31,7 @@ class FavoritesScreen extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 children: [
                   BookCard(
+                    book: Book.empty,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -38,15 +40,9 @@ class FavoritesScreen extends StatelessWidget {
                     ),
                     onLike: () => print(' Tap Like'),
                     onTap: () => print(' Tap Card'),
-                    title: 'The More of Less',
-                    author: 'Joshua Becker',
-                    mainCategory: 'Minimalist',
-                    averageRating: '4.5',
-                    isFavorite: false,
-                    imageLink:
-                        "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
                   ),
                   BookCard(
+                    book: Book.empty,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -55,15 +51,9 @@ class FavoritesScreen extends StatelessWidget {
                     ),
                     onTap: () => Navigator.pushNamed(
                         context, BookDetailScreen.routeName),
-                    title: 'The More of Less',
-                    author: 'Joshua Becker',
-                    mainCategory: 'Minimalist',
-                    averageRating: '4.5',
-                    isFavorite: true,
-                    imageLink:
-                        "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
                   ),
                   BookCard(
+                    book: Book.empty,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -72,15 +62,9 @@ class FavoritesScreen extends StatelessWidget {
                     ),
                     onLike: () => print(' Tap Like'),
                     onTap: () => print(' Tap Card'),
-                    title: 'The More of Less',
-                    author: 'Joshua Becker',
-                    mainCategory: 'Minimalist',
-                    averageRating: '4.5',
-                    isFavorite: false,
-                    imageLink:
-                        "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
                   ),
                   BookCard(
+                    book: Book.empty,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -89,13 +73,6 @@ class FavoritesScreen extends StatelessWidget {
                     ),
                     onTap: () => Navigator.pushNamed(
                         context, BookDetailScreen.routeName),
-                    title: 'The More of Less',
-                    author: 'Joshua Becker',
-                    mainCategory: 'Minimalist',
-                    averageRating: '4.5',
-                    isFavorite: true,
-                    imageLink:
-                        "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
                   ),
                 ],
               ),

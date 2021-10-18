@@ -22,8 +22,25 @@ class BooksRepositoryImpl implements BooksRepository {
         return ResponseModel(success: false);
       }
     } on Exception catch (e) {
-      print(e);
-      throw const QueryBooksFailure();
+      throw QueryBooksFailure(e.toString());
+    }
+  }
+
+  @override
+  Future<ResponseModel> famousBooks() async {
+    const q =
+        'https://www.googleapis.com/books/v1/volumes?q=google${'&maxResults=10'}';
+    try {
+      final result = await http.get(Uri.parse(q));
+      if (result.statusCode == 200) {
+        final respModel = ResponseModel.fromJson(
+            jsonDecode(result.body) as Map<String, dynamic>);
+        return respModel.copyWith(success: true);
+      } else {
+        return ResponseModel(success: false);
+      }
+    } on Exception catch (e) {
+      throw QueryBooksFailure(e.toString());
     }
   }
 }

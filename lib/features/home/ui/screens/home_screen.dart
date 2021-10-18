@@ -8,6 +8,8 @@ import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
+import 'package:take_home_project/features/home/bloc/tab_bloc.dart';
+import 'package:take_home_project/features/home/models/app_bottom_tab.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -47,9 +49,11 @@ class _HomeBody extends StatelessWidget {
               ),
             ),
             SizedBox(height: 82.dH),
-            const _HomeCard(
+            _HomeCard(
               iconUrl: AppImages.bookIcon,
               title: Strings.explore,
+              onTap: () =>
+                  context.read<TabBloc>().onUpdateTab(AppBottomTab.books),
             ),
             const _HomeCard(
               iconUrl: AppImages.blueHeart,

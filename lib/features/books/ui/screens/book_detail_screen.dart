@@ -42,7 +42,7 @@ class BookDetailScreen extends StatelessWidget {
                     height: 50.dH,
                     width: 40.dW,
                     margin: EdgeInsets.zero,
-                    isFavorite: true,
+                    isFavorite: book.isFavorite ?? false,
                   ),
                 ],
               ),

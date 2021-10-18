@@ -24,4 +24,20 @@ class BooksBloc extends ChangeNotifier {
       throw const QueryBooksFailure();
     }
   }
+
+  Future<List<Book>> getFamousBooks() async {
+    try {
+      final result = await _booksRepository.famousBooks();
+      if (result.success!) {
+        return result.books!;
+      } else {
+        return [];
+      }
+
+      // print(result.result);
+    } catch (e) {
+      print("Book Bloc Exception: $e");
+      throw const QueryBooksFailure();
+    }
+  }
 }
