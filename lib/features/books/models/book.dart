@@ -5,17 +5,17 @@ class Book {
   final bool? isFavorite;
 
   /// The informations about the book
-  final BookInfo info;
+  final BookInfo? info;
 
   const Book({
     required this.id,
     this.etag,
     this.isFavorite,
-    required this.info,
+    this.info,
   });
 
   @override
-  String toString() => '$id:${info.title}';
+  String toString() => '$id:${info!.title}';
 
   factory Book.fromJson(
     Map<String, dynamic> json,
@@ -42,76 +42,80 @@ class Book {
       info: info ?? this.info,
     );
   }
+
+  static const empty = Book(id: '');
+
+  bool get isEmpty => this == Book.empty;
+
+  bool get isNotEmpty => this != Book.empty;
 }
 
 class BookInfo {
   /// The book title
-  final String title;
+  final String? title;
 
   /// A list with the name of all the authors of the book
-  final List<String> authors;
+  final List<String>? authors;
 
   /// The publisher name
-  final String publisher;
+  final String? publisher;
 
   /// The date the book was published
   final String? publishedDate;
 
   /// The date the book was published in raw string format
-  final String rawPublishedDate;
+  final String? rawPublishedDate;
 
   /// The description of the book
-  final String description;
+  final String? description;
 
   /// The amount of pages the book has
-  final int pageCount;
+  final int? pageCount;
 
   /// The categories the book is in
-  final List<String> categories;
+  final List<String>? categories;
 
   /// The average rating
   final double? averageRating;
 
   /// Some image links
-  final List<String> imageLinks;
+  final ImageLinks? imageLinks;
 
   /// The original language of the book
-  final String language;
+  final String? language;
 
   const BookInfo({
-    required this.title,
-    required this.authors,
-    required this.publisher,
-    required this.averageRating,
-    required this.categories,
-    required this.description,
-    required this.imageLinks,
-    required this.language,
-    required this.pageCount,
-    required this.publishedDate,
-    required this.rawPublishedDate,
+    this.title,
+    this.authors,
+    this.publisher,
+    this.averageRating,
+    this.categories,
+    this.description,
+    this.imageLinks,
+    this.language,
+    this.pageCount,
+    this.publishedDate,
+    this.rawPublishedDate,
   });
 
   factory BookInfo.fromJson(Map<String, dynamic> json) {
     return BookInfo(
-      title: json['title'] as String,
-      authors: ((json['authors'] as List<dynamic>?) ?? [])
-          .map((e) => e.toString())
-          .toList(),
-      publisher: json['publisher'] as String,
-      averageRating: ((json['averageRating'] ?? 0) as num).toDouble(),
-      categories: ((json['categories'] as List<dynamic>?) ?? [])
-          .map((e) => e.toString())
-          .toList(),
-      description: json['description'] as String,
-      language: json['language'] as String,
-      pageCount: ((json['pageCount'] ?? 0) as num).toInt(),
-      publishedDate: json['publishedDate'] as String,
-      rawPublishedDate: (json['publishedDate'] as String?) ?? '',
-      imageLinks: ((json['imageLinks'] as List<dynamic>?) ?? [])
-          .map((e) => e.toString())
-          .toList(),
-    );
+        title: json['title'] as String?,
+        authors: ((json['authors'] as List<dynamic>?) ?? [])
+            .map((e) => e.toString())
+            .toList(),
+        publisher: json['publisher'] as String?,
+        averageRating: ((json['averageRating'] ?? 0) as num).toDouble(),
+        categories: ((json['categories'] as List<dynamic>?) ?? [])
+            .map((e) => e.toString())
+            .toList(),
+        description: json['description'] as String?,
+        language: json['language'] as String?,
+        pageCount: ((json['pageCount'] ?? 0) as num).toInt(),
+        publishedDate: json['publishedDate'] as String?,
+        rawPublishedDate: (json['publishedDate'] as String?) ?? '',
+        imageLinks:
+            ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>));
   }
 
   Map<String, dynamic> toJson() => {
@@ -143,4 +147,24 @@ class BookInfo {
     imageLinks: $imageLinks
     ''';
   }
+}
+
+class ImageLinks {
+  final String? smallThumbnail;
+  final String? thumbnail;
+
+  ImageLinks({
+    this.smallThumbnail,
+    this.thumbnail,
+  });
+  factory ImageLinks.fromJson(Map<String, dynamic> json) {
+    return ImageLinks(
+        smallThumbnail: json['smallThumbnail'] as String?,
+        thumbnail: json['thumbnail'] as String?);
+  }
+
+  Map<String, dynamic> toJson() => {
+        'smallThumbnail': smallThumbnail,
+        'thumbnail': thumbnail,
+      };
 }
