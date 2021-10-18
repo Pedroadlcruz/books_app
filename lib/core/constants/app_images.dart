@@ -9,4 +9,6 @@ class AppImages {
   static const String placeholder = "$_url/placeholder.gif";
   static const String emoji =
       'https://cdn.pngsumo.com/sunglasses-png-source-smiley-face-emoji-transparent-png-emoji-smiley-face-png-920_705.png';
+  static const String bookAltUrl =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Book.svg/1200px-Book.svg.png";
 }

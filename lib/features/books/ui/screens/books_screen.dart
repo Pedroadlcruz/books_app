@@ -86,7 +86,8 @@ class _SearchField extends StatelessWidget {
             delegate: BooksSearchDelegate(booksBloc,
                 searchFieldLabel: Strings.searchHintTxt));
         if (selectedBook!.isNotEmpty) {
-          print('$selectedBook --> Book Screen');
+          Navigator.pushNamed(context, BookDetailScreen.routeName,
+              arguments: selectedBook);
         }
       },
       child: Container(

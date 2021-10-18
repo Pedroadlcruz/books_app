@@ -51,6 +51,8 @@ class Strings {
   static const famousBooks = "Famous Books";
   static const searchHintTxt = "Search for books...";
   static const bookDetail = "Book detail";
+  static const noDescriptionDetail = "No description detail";
+
   // Profile
   static const logout = "Logout";
   static const logoutConfirmationMsg = "Are you sure you want to logout";

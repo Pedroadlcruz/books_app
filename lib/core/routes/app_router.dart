@@ -6,6 +6,7 @@ import 'package:take_home_project/features/auth/ui/screens/change_password.dart'
 import 'package:take_home_project/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/auth/ui/widgets/auth_wrapper.dart';
+import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/screens/books_screen.dart';
 import 'package:take_home_project/features/books/ui/screens/favorites_screen.dart';
@@ -34,7 +35,7 @@ class AppRouter {
       case ProfileScreen.routeName:
         return _buildTabPage(const ProfileScreen());
       case BookDetailScreen.routeName:
-        return _buildPage(const BookDetailScreen());
+        return _buildPage(BookDetailScreen(book: settings.arguments! as Book));
 
       default:
         return PageRouteBuilder(
