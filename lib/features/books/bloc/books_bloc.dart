@@ -7,7 +7,13 @@ class BooksBloc extends ChangeNotifier {
   final BooksRepositoryImpl _booksRepository;
 
   BooksBloc({required BooksRepositoryImpl booksRepository})
-      : _booksRepository = booksRepository;
+      : _booksRepository = booksRepository,
+        super() {
+    loadFavoritesBooks();
+  }
+
+  final List<Book> favoritesBooks = [];
+
   Future<List<Book>> getBooksByName(String query) async {
     try {
       final result =
@@ -39,5 +45,9 @@ class BooksBloc extends ChangeNotifier {
       print("Book Bloc Exception: $e");
       throw const QueryBooksFailure();
     }
+  }
+
+  Future loadFavoritesBooks() async {
+    await _booksRepository.loadfavoritesBooks();
   }
 }

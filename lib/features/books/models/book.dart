@@ -17,6 +17,25 @@ class Book {
   @override
   String toString() => '$id:${info!.title}';
 
+  factory Book.fromFirebaseJson(
+    Map<String, dynamic> json,
+  ) {
+    return Book(
+        id: json['id'] as String,
+        isFavorite: json["isFavorite"] as bool?,
+        info: BookInfo(
+          title: json["title"] as String,
+          authors: [json["author"] as String],
+          averageRating: ((json['averageRating'] ?? 0) as num).toDouble(),
+          categories: [json["categories"] as String],
+          description: json["description"] as String,
+          imageLinks: ImageLinks(
+            thumbnail: json["imageLink"] as String,
+            smallThumbnail: json["imageLink"] as String,
+          ),
+        ));
+  }
+
   factory Book.fromJson(
     Map<String, dynamic> json,
   ) {

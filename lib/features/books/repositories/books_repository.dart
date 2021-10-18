@@ -5,4 +5,5 @@ abstract class BooksRepository {
   Future<ResponseModel> queryBooks(
       {required String query, required int maxResults});
   Future<ResponseModel> famousBooks();
+  Future<ResponseModel> loadfavoritesBooks();
 }
