@@ -61,19 +61,20 @@ class ProfileScreen extends StatelessWidget {
                 if (result) {
                   Navigator.pop(context);
                   Alerts.alertDialog(
-                      context: context,
-                      content: 'Account deleted successfully',
-                      onOk: () => Navigator.pushReplacementNamed(
-                          context, LoginScreen.routeName));
+                    context: context,
+                    content: Strings.deleteAccountSuccessMsg,
+                    onOk: () => Navigator.pushReplacementNamed(
+                        context, LoginScreen.routeName),
+                  );
                 } else {
                   Navigator.pop(context);
                   Alerts.alertDialog(
-                      context: context,
-                      isSucccess: false,
-                      content:
-                          'Sorry, Log in again before retrying this request.',
-                      onOk: () => Navigator.pushReplacementNamed(
-                          context, LoginScreen.routeName));
+                    context: context,
+                    isSucccess: false,
+                    content: Strings.deleteAccountErrorMsg,
+                    onOk: () => Navigator.pushReplacementNamed(
+                        context, LoginScreen.routeName),
+                  );
                 }
               },
             ),

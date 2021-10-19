@@ -60,6 +60,9 @@ class Strings {
   static const deleteAccount = "Delete account";
   static const deleteAccountConfirmationMsg =
       "Are you sure you want to delete account";
+  static const deleteAccountSuccessMsg = 'Account deleted successfully';
+  static const deleteAccountErrorMsg =
+      'Sorry, Log in again before retrying this request.';
   //Change password
   static const newPassword = "New password";
   static const confirmPassword = "Confirm password";
