@@ -31,7 +31,8 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appUser = context.select((AuthBloc user) => user.currentUser);
-    print(appUser.name);
+    context.read<TabBloc>().onUpdateTab(AppBottomTab.home);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
