@@ -1,6 +1,6 @@
 class Strings {
   // App
-  static const appTitle = "Take Home Projects";
+  static const appTitle = "Books App";
 
   // Register
 

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// Custom App Alerts
 class Alerts {
   static void buildScaffoldMessenger({
     required BuildContext context,
@@ -22,6 +23,7 @@ class Alerts {
       );
   }
 
+  ///Build a [Custom Dialog] base on the current Platform [IOS] and [Android]
   static Future<Future> confirmDialog(
       {required BuildContext context,
       required String title,

@@ -4,6 +4,9 @@ import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 
 class InputDecorations {
+  ///
+  /// An app TextFormField [Custom Decoration]
+  ///
   static InputDecoration authInputDecoration({
     required String hintText,
     required String labelText,

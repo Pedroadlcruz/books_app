@@ -1,9 +1,11 @@
 import 'package:sizer/sizer.dart';
 export 'package:sizer/sizer.dart';
 
+// Using Dart Sizer Packages methodhs to calculate and adapt
+//the app Ui based on the desing references
 extension ResponsiveCalculation on num {
-  static final double _designHeight = 896.0;
-  static final double _designWidth = 414.0;
+  static const double _designHeight = 896.0;
+  static const double _designWidth = 414.0;
 
   ///
   ///Returns the percent [Height] based on the design height reference

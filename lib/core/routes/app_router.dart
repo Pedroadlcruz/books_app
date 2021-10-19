@@ -14,6 +14,10 @@ import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 import 'package:take_home_project/features/home/ui/screens/profile_screen.dart';
 
 class AppRouter {
+  ///
+  /// Given a [route name]...
+  ///Build a route base on the current Platform [IOS] and [Android]
+  ///
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
@@ -46,6 +50,7 @@ class AppRouter {
     }
   }
 
+//Build a route base on the current Platform [IOS] and [Android]
   static Route<dynamic> _buildPage(Widget page,
       {String? routeName, Object? arguments}) {
     if (Platform.isIOS) {
@@ -61,6 +66,7 @@ class AppRouter {
     }
   }
 
+// build a specific route for the screens that the tab page contains
   static Route<dynamic> _buildTabPage(Widget page,
       {String? routeName, Object? arguments}) {
     return PageRouteBuilder(

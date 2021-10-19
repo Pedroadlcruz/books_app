@@ -36,12 +36,20 @@ class Book {
         ));
   }
 
+  Map<String, dynamic> toFirebaseJson() => {
+        'id': id,
+        "isFavorite": isFavorite,
+        "etag": etag,
+        'volumeInfo': info?.toJson()
+      };
+
   factory Book.fromJson(
     Map<String, dynamic> json,
   ) {
     return Book(
       id: json['id'] as String,
       etag: json['etag'] as String,
+      isFavorite: ['isFavorite'] as bool?,
       info: BookInfo.fromJson(
         json['volumeInfo'] as Map<String, dynamic>,
       ),
@@ -148,7 +156,7 @@ class BookInfo {
         'description': description,
         'language': language,
         'pageCount': pageCount,
-        'imageLinks': imageLinks,
+        'imageLinks': imageLinks?.toJson(),
       };
 
   @override

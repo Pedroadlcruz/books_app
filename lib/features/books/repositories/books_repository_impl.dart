@@ -7,6 +7,7 @@ import 'package:take_home_project/features/books/models/response_model.dart';
 import 'package:take_home_project/features/books/repositories/books_repository.dart';
 
 class BooksRepositoryImpl implements BooksRepository {
+  final String _baseFirebaseUrl = 'books-app-55b92-default-rtdb.firebaseio.com';
   @override
   Future<ResponseModel> queryBooks(
       {required String query, required int maxResults}) async {
@@ -64,5 +65,21 @@ class BooksRepositoryImpl implements BooksRepository {
     } catch (e) {
       throw QueryBooksFailure(e.toString());
     }
+  }
+
+  @override
+  Future addBook(Book book) async {
+    final url = Uri.https(_baseFirebaseUrl, 'product.json');
+    try {
+      final result = await http.post(url);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Future updateBook(Book book) {
+    // TODO: implement updateBook
+    throw UnimplementedError();
   }
 }
