@@ -6,4 +6,4 @@ This app allows you to go through the authentication cycle
 - Change / Recover password
 - Log in with google
 - Delete account
-It also allows you to consult books from the google books service
+- It also allows you to consult books from the google books service
