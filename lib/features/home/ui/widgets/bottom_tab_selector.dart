@@ -70,8 +70,6 @@ class BottomTabSelector extends StatelessWidget {
     }
     return BottomNavigationBarItem(
       icon: icon!,
-      // label: title,
-      //? En caso de usar la propiedad Title
       title: Padding(
         padding: EdgeInsets.only(top: 3.0.dH),
         child: Text(
