@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:take_home_project/core/error/books_exceptions.dart';
 import 'package:take_home_project/features/books/models/book.dart';
@@ -69,9 +70,16 @@ class BooksRepositoryImpl implements BooksRepository {
 
   @override
   Future addBook(Book book) async {
-    final url = Uri.https(_baseFirebaseUrl, 'product.json');
+    final url = Uri.https(_baseFirebaseUrl, 'books.json');
     try {
-      final result = await http.post(url);
+      final result = await http.post(url,
+          body: jsonEncode(book.toFirebaseJson()),
+          headers: {
+            "provider": "google",
+            "uid": "ccd2694d-14e3-42f4-b913-eab109777da0"
+          });
+      // final decodeData = result.body;
+      print(result.body);
     } catch (e) {
       print(e);
     }

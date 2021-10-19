@@ -32,6 +32,9 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
     return FutureBuilder(
       future: booksBloc.getBooksByName(query),
       builder: (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
+        if (snapshot.hasError) {
+          return const Center(child: Text('A loading error has occurred'));
+        }
         if (snapshot.hasData) {
           return _showBooks(snapshot.data!);
         } else {
@@ -43,7 +46,7 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return const ListTile(title: Text(' Suggestions'));
+    return const ListTile(title: Text(' '));
   }
 
   Widget _showBooks(List<Book> books) {

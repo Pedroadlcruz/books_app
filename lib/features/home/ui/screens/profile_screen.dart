@@ -7,7 +7,6 @@ import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
-import 'package:take_home_project/features/auth/ui/screens/change_password.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
@@ -41,12 +40,6 @@ class ProfileScreen extends StatelessWidget {
           Text(appUser.email ?? " ", style: TextStyles.blueText),
           SizedBox(height: 90.dH),
           AppBtn(
-            label: Strings.changePassword,
-            onPressed: () =>
-                Navigator.pushNamed(context, ChangePasswordScreen.routeName),
-          ),
-          SizedBox(height: 18.dH),
-          AppBtn(
             label: Strings.logout,
             onPressed: () => Alerts.confirmDialog(
               context: context,
@@ -63,7 +56,10 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () => Alerts.confirmDialog(
               context: context,
               title: Strings.deleteAccountConfirmationMsg,
-              onYes: () {},
+              onYes: () async {
+                await context.read<AuthBloc>().deleteAccount();
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
             ),
           ),
         ],

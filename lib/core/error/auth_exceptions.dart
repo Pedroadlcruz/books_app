@@ -133,3 +133,6 @@ class LogInWithGoogleFailure implements Exception {
 
 /// Thrown during the logout process if a failure occurs.
 class LogOutFailure implements Exception {}
+
+/// Thrown during the delete account process if a failure occurs.
+class DeleteAccountFailure implements Exception {}

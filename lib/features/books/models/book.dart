@@ -10,7 +10,7 @@ class Book {
   const Book({
     required this.id,
     this.etag,
-    this.isFavorite,
+    this.isFavorite = false,
     this.info,
   });
 
@@ -38,7 +38,7 @@ class Book {
 
   Map<String, dynamic> toFirebaseJson() => {
         'id': id,
-        "isFavorite": isFavorite,
+        "isFavorite": isFavorite ?? false,
         "etag": etag,
         'volumeInfo': info?.toJson()
       };
@@ -49,7 +49,7 @@ class Book {
     return Book(
       id: json['id'] as String,
       etag: json['etag'] as String,
-      isFavorite: ['isFavorite'] as bool?,
+      // isFavorite: ['isFavorite'] as bool?,
       info: BookInfo.fromJson(
         json['volumeInfo'] as Map<String, dynamic>,
       ),

@@ -102,6 +102,8 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  Future<void> deleteAccount() async => _firebaseAuth.currentUser!.delete();
+
   /// Signs out the current user which will emit
   /// [User.empty] from the [user] Stream.
   ///

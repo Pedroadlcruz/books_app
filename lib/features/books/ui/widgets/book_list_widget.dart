@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 
@@ -19,7 +21,10 @@ class BookListWidget extends StatelessWidget {
         final Book book = books[index];
         return BookCard(
           book: book,
-          onLike: () => print(' Tap Like'),
+          onLike: () {
+            print(' Tap Like');
+            // context.read<BooksBloc>().addFavoriteBook(book);
+          },
           onTap: () => Navigator.pushNamed(context, BookDetailScreen.routeName,
               arguments: book),
         );

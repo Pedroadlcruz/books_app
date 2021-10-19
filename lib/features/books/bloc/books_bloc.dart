@@ -78,4 +78,9 @@ class BooksBloc extends ChangeNotifier {
       throw const QueryBooksFailure();
     }
   }
+
+  Future addFavoriteBook(Book book) async {
+    final result = await _booksRepository.addBook(book);
+    print('Todo bien');
+  }
 }
