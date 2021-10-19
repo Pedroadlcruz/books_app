@@ -7,7 +7,8 @@ import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
-import 'package:take_home_project/features/auth/models/user.dart';
+import 'package:take_home_project/features/books/ui/screens/books_screen.dart';
+import 'package:take_home_project/features/books/ui/screens/favorites_screen.dart';
 import 'package:take_home_project/features/home/bloc/tab_bloc.dart';
 import 'package:take_home_project/features/home/models/app_bottom_tab.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
@@ -52,12 +53,19 @@ class _HomeBody extends StatelessWidget {
             _HomeCard(
               iconUrl: AppImages.bookIcon,
               title: Strings.explore,
-              onTap: () =>
-                  context.read<TabBloc>().onUpdateTab(AppBottomTab.books),
+              onTap: () {
+                context.read<TabBloc>().onUpdateTab(AppBottomTab.books);
+                Navigator.pushReplacementNamed(context, BooksScreen.routeName);
+              },
             ),
-            const _HomeCard(
+            _HomeCard(
               iconUrl: AppImages.blueHeart,
               title: Strings.favorites,
+              onTap: () {
+                context.read<TabBloc>().onUpdateTab(AppBottomTab.favorites);
+                Navigator.pushReplacementNamed(
+                    context, FavoritesScreen.routeName);
+              },
             ),
           ],
         ),

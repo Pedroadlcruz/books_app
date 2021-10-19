@@ -10,9 +10,16 @@ class BooksBloc extends ChangeNotifier {
       : _booksRepository = booksRepository,
         super() {
     loadFavoritesBooks();
+    getFamousBooks();
   }
 
-  final List<Book> favoritesBooks = [];
+  List<Book> favorites = [];
+  bool loadingFavorites = true;
+  String errorLoadingFavorites = '';
+
+  List<Book> famous = [];
+  bool loadingFamous = true;
+  String errorLoadingFamous = '';
 
   Future<List<Book>> getBooksByName(String query) async {
     try {
@@ -31,23 +38,44 @@ class BooksBloc extends ChangeNotifier {
     }
   }
 
-  Future<List<Book>> getFamousBooks() async {
+  Future getFamousBooks() async {
+    loadingFamous = true;
+    notifyListeners();
     try {
       final result = await _booksRepository.famousBooks();
       if (result.success!) {
+        famous = result.books!;
+        loadingFamous = false;
+        notifyListeners();
         return result.books!;
       } else {
-        return [];
+        errorLoadingFamous = 'Unespected load error';
+        loadingFamous = false;
+        notifyListeners();
       }
-
-      // print(result.result);
-    } catch (e) {
+    } on QueryBooksFailure catch (e) {
       print("Book Bloc Exception: $e");
       throw const QueryBooksFailure();
     }
   }
 
   Future loadFavoritesBooks() async {
-    await _booksRepository.loadfavoritesBooks();
+    loadingFavorites = true;
+    notifyListeners();
+    try {
+      final result = await _booksRepository.loadfavoritesBooks();
+      if (result.success!) {
+        favorites = result.books!;
+        loadingFavorites = false;
+        notifyListeners();
+      } else {
+        errorLoadingFavorites = 'Unespected load error';
+        loadingFavorites = false;
+        notifyListeners();
+      }
+    } on QueryBooksFailure catch (e) {
+      print("Book Bloc Exception: $e");
+      throw const QueryBooksFailure();
+    }
   }
 }

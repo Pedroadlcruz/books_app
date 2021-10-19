@@ -40,8 +40,8 @@ class BooksRepositoryImpl implements BooksRepository {
       } else {
         return ResponseModel(success: false);
       }
-    } on Exception catch (e) {
-      throw QueryBooksFailure(e.toString());
+    } on Exception {
+      throw const QueryBooksFailure();
     }
   }
 
@@ -49,12 +49,20 @@ class BooksRepositoryImpl implements BooksRepository {
   Future<ResponseModel> loadfavoritesBooks() async {
     const url =
         'https://books-app-55b92-default-rtdb.firebaseio.com/books.json';
-    final result = await http.get(Uri.parse(url));
-    final Map<String, dynamic> booksMap =
-        jsonDecode(result.body) as Map<String, dynamic>;
-    print(booksMap);
-    // final respModel = Book.fromFirebaseJson(
-    //         jsonDecode(result.body) as Map<String, dynamic>);
-    return ResponseModel(success: false);
+    try {
+      final result = await http.get(Uri.parse(url));
+      if (result.statusCode == 200) {
+        final books = <Book>[];
+        (jsonDecode(result.body) as Map<String, dynamic>).forEach((key, value) {
+          final book = Book.fromFirebaseJson(value as Map<String, dynamic>);
+          books.add(book);
+        });
+        return ResponseModel(success: true, books: books);
+      } else {
+        return ResponseModel(success: false);
+      }
+    } catch (e) {
+      throw QueryBooksFailure(e.toString());
+    }
   }
 }

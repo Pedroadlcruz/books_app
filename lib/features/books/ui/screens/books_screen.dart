@@ -12,6 +12,7 @@ import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/repositories/books_repository_impl.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
+import 'package:take_home_project/features/books/ui/widgets/book_list_widget.dart';
 import 'package:take_home_project/features/books/ui/widgets/books_search_delegate.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
@@ -21,31 +22,27 @@ class BooksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) =>
-          BooksBloc(booksRepository: BooksRepositoryImpl()),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 36.dW),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 77.dH, width: double.infinity),
-              Text(Strings.booksScreenMsj,
-                  style: TextStyles.mainLabel.copyWith(fontSize: 30.fS)),
-              SizedBox(height: 35.dH),
-              const _SearchField(),
-              SizedBox(height: 46.dH),
-              Text(Strings.famousBooks,
-                  style: TextStyles.mainLabel.copyWith(fontSize: 24.fS)),
-              SizedBox(height: 26.dH),
-              const _FamousBooks(),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 36.dW),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 77.dH, width: double.infinity),
+            Text(Strings.booksScreenMsj,
+                style: TextStyles.mainLabel.copyWith(fontSize: 30.fS)),
+            SizedBox(height: 35.dH),
+            const _SearchField(),
+            SizedBox(height: 46.dH),
+            Text(Strings.famousBooks,
+                style: TextStyles.mainLabel.copyWith(fontSize: 24.fS)),
+            SizedBox(height: 26.dH),
+            const _FamousBooks(),
+          ],
         ),
-        bottomNavigationBar: const BottomTabSelector(),
       ),
+      bottomNavigationBar: const BottomTabSelector(),
     );
   }
 }
@@ -59,29 +56,13 @@ class _FamousBooks extends StatelessWidget {
   Widget build(BuildContext context) {
     final booksBloc = context.watch<BooksBloc>();
     return Expanded(
-        child: FutureBuilder(
-      future: booksBloc.getFamousBooks(),
-      builder: (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: snapshot.data!.length,
-            itemBuilder: (BuildContext context, int index) {
-              final Book book = snapshot.data![index];
-              return BookCard(
-                book: book,
-                onLike: () => print(' Tap Like'),
-                onTap: () => Navigator.pushNamed(
-                    context, BookDetailScreen.routeName,
-                    arguments: book),
-              );
-            },
-          );
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    ));
+      child: booksBloc.loadingFamous
+          ? const Center(child: CircularProgressIndicator())
+          : SizedBox(
+              height: 670.dH,
+              child: BookListWidget(books: booksBloc.famous),
+            ),
+    );
   }
 }
 

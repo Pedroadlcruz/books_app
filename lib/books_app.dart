@@ -9,6 +9,8 @@ import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 
+import 'features/books/bloc/books_bloc.dart';
+import 'features/books/repositories/books_repository_impl.dart';
 import 'features/home/bloc/tab_bloc.dart';
 
 class BooksApp extends StatelessWidget {
@@ -26,9 +28,10 @@ class BooksApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
             create: (_) => AuthBloc(authRepository: _authRepository)),
+        ChangeNotifierProvider(create: (BuildContext context) => TabBloc()),
         ChangeNotifierProvider(
-          create: (BuildContext context) => TabBloc(),
-        ),
+            create: (BuildContext context) =>
+                BooksBloc(booksRepository: BooksRepositoryImpl())),
       ],
       child: const _AppView(),
     );
