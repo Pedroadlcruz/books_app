@@ -102,6 +102,19 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  /// Delete account of the current user
+  ///
+  /// Throws a [DeleteAcouuntFailure] if an exception occurs.
+  ///
+  @override
+  Future<void> forgotPassword(String email) async =>
+      _firebaseAuth.sendPasswordResetEmail(email: email);
+
+  /// Delete account of the current user
+  ///
+  /// Throws a [DeleteAcouuntFailure] if an exception occurs.
+  ///
+  @override
   Future<void> deleteAccount() async => _firebaseAuth.currentUser!.delete();
 
   /// Signs out the current user which will emit

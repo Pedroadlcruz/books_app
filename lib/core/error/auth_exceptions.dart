@@ -43,7 +43,7 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
 
 class LogInWithEmailAndPasswordFailure implements Exception {
   const LogInWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
+    this.message = 'Check your internet conection.',
   ]);
 
   /// Create an authentication message
@@ -83,7 +83,7 @@ class LogInWithEmailAndPasswordFailure implements Exception {
 
 class LogInWithGoogleFailure implements Exception {
   const LogInWithGoogleFailure([
-    this.message = 'An unknown exception occurred.',
+    this.message = 'Check your internet conection.',
   ]);
 
   /// Create an authentication message
@@ -124,6 +124,36 @@ class LogInWithGoogleFailure implements Exception {
         );
       default:
         return const LogInWithGoogleFailure();
+    }
+  }
+
+  /// The associated error message.
+  final String message;
+}
+
+/// Thrown during the login process if a failure occurs.
+
+class ForgotPasswordFailure implements Exception {
+  const ForgotPasswordFailure([
+    this.message = 'Check your internet conection.',
+  ]);
+
+  /// Create a forgot password authentication message
+  /// from a firebase authentication exception code.
+  factory ForgotPasswordFailure.fromCode(String code) {
+    switch (code) {
+      case 'auth/invalid-email':
+        return const ForgotPasswordFailure(
+          'Incorrect email , please try again.',
+        );
+
+      case 'auth/user-not-found':
+        return const ForgotPasswordFailure(
+          'Email is not found, please create an account.',
+        );
+
+      default:
+        return const ForgotPasswordFailure();
     }
   }
 

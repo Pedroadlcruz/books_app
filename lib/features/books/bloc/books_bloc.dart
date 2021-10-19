@@ -32,8 +32,7 @@ class BooksBloc extends ChangeNotifier {
       }
 
       // print(result.result);
-    } catch (e) {
-      print("Book Bloc Exception: $e");
+    } on Exception {
       throw const QueryBooksFailure();
     }
   }
@@ -53,8 +52,7 @@ class BooksBloc extends ChangeNotifier {
         loadingFamous = false;
         notifyListeners();
       }
-    } on QueryBooksFailure catch (e) {
-      print("Book Bloc Exception: $e");
+    } on QueryBooksFailure {
       throw const QueryBooksFailure();
     }
   }
@@ -73,8 +71,7 @@ class BooksBloc extends ChangeNotifier {
         loadingFavorites = false;
         notifyListeners();
       }
-    } on QueryBooksFailure catch (e) {
-      print("Book Bloc Exception: $e");
+    } on QueryBooksFailure {
       throw const QueryBooksFailure();
     }
   }

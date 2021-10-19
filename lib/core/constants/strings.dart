@@ -35,6 +35,11 @@ class Strings {
   static const forgotPasswordMsj =
       "Please enter your email. We will send you a email to reset your password.";
   static const sendBtn = "Send";
+  static const forgotPasswordSuccessMsg =
+      "We have sent a message to your email, so you can update your password";
+
+  static const unknownException = 'Check your internet conection.';
+  static const unknownFailure = 'An unknown failure occurred.';
 
   //Bottom tab selector
   static const home = "Home";
@@ -63,7 +68,4 @@ class Strings {
   static const deleteAccountSuccessMsg = 'Account deleted successfully';
   static const deleteAccountErrorMsg =
       'Sorry, Log in again before retrying this request.';
-  //Change password
-  static const newPassword = "New password";
-  static const confirmPassword = "Confirm password";
 }
