@@ -1,6 +1,5 @@
 # Books App - take_home_project
 
-
 This app allows you to go through the authentication cycle
 - Create Account with email and password
 - Log in with email and password
