@@ -32,13 +32,12 @@ class AuthBloc extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteAccount() async {
+  Future<bool> deleteAccount() async {
     try {
-      await logOut();
       await _authRepository.deleteAccount();
+      return true;
     } on DeleteAccountFailure {
-      errorMsg = 'Sorry, Log in again before retrying this request.';
-      notifyListeners();
+      return false;
     }
   }
 

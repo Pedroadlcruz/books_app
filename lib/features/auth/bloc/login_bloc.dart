@@ -52,6 +52,7 @@ class LoginBloc extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     try {
+      await _authRepository.logOut();
       await _authRepository.logInWithGoogle();
       _isLoading = false;
       notifyListeners();

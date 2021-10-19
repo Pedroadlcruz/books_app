@@ -57,8 +57,24 @@ class ProfileScreen extends StatelessWidget {
               context: context,
               title: Strings.deleteAccountConfirmationMsg,
               onYes: () async {
-                await context.read<AuthBloc>().deleteAccount();
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                final result = await context.read<AuthBloc>().deleteAccount();
+                if (result) {
+                  Navigator.pop(context);
+                  Alerts.alertDialog(
+                      context: context,
+                      content: 'Account deleted successfully',
+                      onOk: () => Navigator.pushReplacementNamed(
+                          context, LoginScreen.routeName));
+                } else {
+                  Navigator.pop(context);
+                  Alerts.alertDialog(
+                      context: context,
+                      isSucccess: false,
+                      content:
+                          'Sorry, Log in again before retrying this request.',
+                      onOk: () => Navigator.pushReplacementNamed(
+                          context, LoginScreen.routeName));
+                }
               },
             ),
           ),

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:take_home_project/core/theme/app_colors.dart';
+import 'package:take_home_project/core/extensions/responsive.dart';
 
 /// Custom App Alerts
 class Alerts {
@@ -56,6 +58,63 @@ class Alerts {
               TextButton(
                 child: const Text('No'),
                 onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  ///Build a [Custom Alert Dialog] base on the current Platform [IOS] and [Android]
+  static Future<Future> alertDialog(
+      {required BuildContext context,
+      required String content,
+      bool? isSucccess = true,
+      required void Function()? onOk}) async {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        if (Platform.isIOS) {
+          return CupertinoAlertDialog(
+            title: isSucccess!
+                ? Icon(
+                    Icons.check_circle_outline,
+                    color: AppColors.primaryColor,
+                    size: 60.dW,
+                  )
+                : Icon(
+                    Icons.cancel_outlined,
+                    color: AppColors.primaryColor,
+                    size: 60.dW,
+                  ),
+            content: Text(content),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Ok'),
+                onPressed: onOk,
+              ),
+            ],
+          );
+        } else {
+          return AlertDialog(
+            title: isSucccess!
+                ? Icon(
+                    Icons.check_circle_outline,
+                    color: AppColors.primaryColor,
+                    size: 60.dW,
+                  )
+                : Icon(
+                    Icons.cancel_outlined,
+                    color: AppColors.primaryColor,
+                    size: 60.dW,
+                  ),
+            content: Text(content),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Ok'),
+                onPressed: onOk,
               ),
             ],
           );
