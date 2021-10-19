@@ -1,16 +1,10 @@
-# take_home_project
+# Books App - take_home_project
 
-A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app allows you to go through the authentication cycle
+- Create Account with email and password
+- Log in with email and password
+- Change / Recover password
+- Log in with google
+- Delete account
+It also allows you to consult books from the google books service
