@@ -1,4 +1,4 @@
-# Books App - take_home_project
+# Books App - take_home_project Developed on flutter version 2.2.3
 
 This app allows you to go through the authentication cycle
 - Create Account with email and password
