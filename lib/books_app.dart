@@ -30,8 +30,9 @@ class BooksApp extends StatelessWidget {
             create: (_) => AuthBloc(authRepository: _authRepository)),
         ChangeNotifierProvider(create: (BuildContext context) => TabBloc()),
         ChangeNotifierProvider(
-            create: (BuildContext context) =>
-                BooksBloc(booksRepository: BooksRepositoryImpl())),
+            create: (BuildContext context) => BooksBloc(
+                booksRepository:
+                    BooksRepositoryImpl(context.read<AuthBloc>()))),
       ],
       child: const _AppView(),
     );

@@ -71,13 +71,18 @@ class BooksBloc extends ChangeNotifier {
         loadingFavorites = false;
         notifyListeners();
       }
-    } on QueryBooksFailure {
+    } on QueryBooksFailure catch (e) {
+      print(e);
       throw const QueryBooksFailure();
     }
   }
 
   Future addFavoriteBook(Book book) async {
     final result = await _booksRepository.addBook(book);
+    if (result.isNotEmpty) {
+      book.copyWith(uid: result);
+      favorites.add(book);
+    } else {}
     print('Todo bien');
   }
 }

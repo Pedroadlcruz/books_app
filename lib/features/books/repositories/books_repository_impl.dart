@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:take_home_project/core/error/books_exceptions.dart';
+import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 
 import 'package:take_home_project/features/books/models/response_model.dart';
@@ -9,6 +10,9 @@ import 'package:take_home_project/features/books/repositories/books_repository.d
 
 class BooksRepositoryImpl implements BooksRepository {
   final String _baseFirebaseUrl = 'books-app-55b92-default-rtdb.firebaseio.com';
+  final AuthBloc authBloc;
+
+  BooksRepositoryImpl(this.authBloc);
   @override
   Future<ResponseModel> queryBooks(
       {required String query, required int maxResults}) async {
@@ -49,11 +53,12 @@ class BooksRepositoryImpl implements BooksRepository {
 
   @override
   Future<ResponseModel> loadfavoritesBooks() async {
-    const url =
-        'https://books-app-55b92-default-rtdb.firebaseio.com/books.json';
+    final userId = authBloc.currentUser.id;
+    final url =
+        'https://books-app-55b92-default-rtdb.firebaseio.com/$userId.json';
     try {
       final result = await http.get(Uri.parse(url));
-      if (result.statusCode == 200) {
+      if (result.statusCode == 200 && result.body != "null") {
         final books = <Book>[];
         (jsonDecode(result.body) as Map<String, dynamic>).forEach((key, value) {
           final book = Book.fromFirebaseJson(value as Map<String, dynamic>);
@@ -61,32 +66,37 @@ class BooksRepositoryImpl implements BooksRepository {
         });
         return ResponseModel(success: true, books: books);
       } else {
-        return ResponseModel(success: false);
+        return ResponseModel(success: false, books: []);
       }
     } catch (e) {
+      print('Load Favorites exception ---> $e');
       throw QueryBooksFailure(e.toString());
     }
   }
 
   @override
-  Future addBook(Book book) async {
-    final url = Uri.https(_baseFirebaseUrl, 'books.json');
+  Future<String> addBook(Book book) async {
+    final userId = authBloc.currentUser.id;
+    final url = Uri.https(_baseFirebaseUrl, '$userId.json');
     try {
       final result = await http.post(url,
           body: jsonEncode(book.toFirebaseJson()),
-          headers: {
-            "provider": "google",
-            "uid": "ccd2694d-14e3-42f4-b913-eab109777da0"
-          });
-      // final decodeData = result.body;
-      print(result.body);
-    } catch (e) {
-      print(e);
+          headers: {"provider": "google", "uid": userId});
+      if (result.statusCode == 200) {
+        print(result.body);
+        final decodeData = jsonDecode(result.body);
+        return decodeData['name'] as String;
+      } else {
+        return '';
+      }
+    } on Exception catch (e) {
+      throw const QueryBooksFailure();
     }
   }
 
   @override
-  Future updateBook(Book book) {
+  Future updateBook(Book book) async {
+    // await http.delete(url)
     // TODO: implement updateBook
     throw UnimplementedError();
   }

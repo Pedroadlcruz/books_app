@@ -23,7 +23,7 @@ class BookListWidget extends StatelessWidget {
           book: book,
           onLike: () {
             print(' Tap Like');
-            // context.read<BooksBloc>().addFavoriteBook(book);
+            context.read<BooksBloc>().addFavoriteBook(book);
           },
           onTap: () => Navigator.pushNamed(context, BookDetailScreen.routeName,
               arguments: book),
