@@ -32,8 +32,6 @@ class BooksBloc extends ChangeNotifier {
       } else {
         return [];
       }
-
-      // print(result.result);
     } on Exception {
       throw const QueryBooksFailure();
     }
@@ -73,24 +71,27 @@ class BooksBloc extends ChangeNotifier {
         loadingFavorites = false;
         notifyListeners();
       }
-    } on QueryBooksFailure catch (e) {
-      print(e);
+    } on QueryBooksFailure {
       throw const QueryBooksFailure();
     }
   }
 
-  Future onLikeBook(Book book) async {
-    if (book.uid == null || book.uid!.isEmpty) {
-      await _addToFavorites(book);
-    } else if (book.uid!.isNotEmpty) {
-      await _deleteFromFavorites(book);
+  Future onLikeTab() async {
+    if (currentBook.uid == null || currentBook.uid!.isEmpty) {
+      await _addToFavorites(currentBook);
+    } else if (currentBook.uid!.isNotEmpty) {
+      await _deleteFromFavorites(currentBook);
     }
+  }
+
+  Future onDislikeTab(Book book) async {
+    await _deleteFromFavorites(book);
   }
 
   Future _deleteFromFavorites(Book book) async {
     try {
       await _booksRepository.deleteBook(book);
-      favorites.where((element) => element.uid != book.uid);
+      favorites.removeWhere((element) => element.uid == book.uid);
       notifyListeners();
     } catch (e) {
       print(e);
@@ -100,8 +101,8 @@ class BooksBloc extends ChangeNotifier {
   Future<void> _addToFavorites(Book book) async {
     final result = await _booksRepository.addBook(book);
     if (result.isNotEmpty) {
-      book.copyWith(uid: result);
-      favorites.add(book);
+      currentBook.uid = result;
+      favorites.add(currentBook);
       notifyListeners();
     }
   }

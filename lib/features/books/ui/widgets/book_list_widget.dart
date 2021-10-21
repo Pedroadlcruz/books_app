@@ -25,10 +25,7 @@ class BookListWidget extends StatelessWidget {
           showLikeBtn: showLikeBtn,
           book: book,
           onLike: () {
-            print(' Tap Like');
-            // context
-            //     .read<BooksBloc>()
-            //     .onLikeBook(book.copyWith(isFavorite: false));
+            context.read<BooksBloc>().onDislikeTab(book);
           },
           onTap: () {
             context.read<BooksBloc>().currentBook = book.copy();

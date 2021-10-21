@@ -1,17 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
-import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
-import 'package:take_home_project/features/books/models/book.dart';
-import 'package:take_home_project/features/books/repositories/books_repository_impl.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
-import 'package:take_home_project/features/books/ui/widgets/book_card.dart';
 import 'package:take_home_project/features/books/ui/widgets/book_list_widget.dart';
 import 'package:take_home_project/features/books/ui/widgets/books_search_delegate.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';

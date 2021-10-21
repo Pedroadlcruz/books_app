@@ -6,7 +6,6 @@ import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
-import 'package:take_home_project/features/books/bloc/book_detail_bloc.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/widgets/like_btn.dart';
@@ -21,13 +20,6 @@ class BookDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentBook = context.watch<BooksBloc>().currentBook;
     return _Body(currentBook: currentBook);
-
-    // return ChangeNotifierProvider(
-    //   create: (_) => BookDetailBloc(currentBook),
-    //   child: Builder(builder: (context) {
-    //     return _Body(currentBook: context.watch<BookDetailBloc>().selectedBook);
-    //   }),
-    // );
   }
 }
 
@@ -69,13 +61,8 @@ class _Body extends StatelessWidget {
                     margin: EdgeInsets.zero,
                     isFavorite: currentBook.isFavorite ?? false,
                     onLike: () async {
-                      print(currentBook.uid);
-                      print(currentBook.isFavorite);
-                      print(currentBook.info!.title);
-
                       context.read<BooksBloc>().toggleFavorite();
-                      // await context.read<BooksBloc>().onLikeBook(book.copyWith(
-                      //     isFavorite: currentBook.isFavorite ?? false));
+                      await context.read<BooksBloc>().onLikeTab();
                     },
                   ),
                 ],
