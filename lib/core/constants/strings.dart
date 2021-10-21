@@ -57,6 +57,7 @@ class Strings {
   static const searchHintTxt = "Search for books...";
   static const bookDetail = "Book detail";
   static const noDescriptionDetail = "No description detail";
+  static const noFavoriteBooksMsg = "You have no favorite books added";
 
   // Profile
   static const logout = "Logout";

@@ -77,12 +77,30 @@ class BooksBloc extends ChangeNotifier {
     }
   }
 
-  Future addFavoriteBook(Book book) async {
+  Future onLikeBook(Book book) async {
+    if (book.uid == null || book.uid!.isEmpty) {
+      await _addToFavorites(book);
+    } else if (book.uid!.isNotEmpty) {
+      await _deleteFromFavorites(book);
+    }
+  }
+
+  Future _deleteFromFavorites(Book book) async {
+    try {
+      await _booksRepository.deleteBook(book);
+      favorites.where((element) => element.uid != book.uid);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _addToFavorites(Book book) async {
     final result = await _booksRepository.addBook(book);
     if (result.isNotEmpty) {
       book.copyWith(uid: result);
       favorites.add(book);
-    } else {}
-    print('Todo bien');
+      notifyListeners();
+    }
   }
 }

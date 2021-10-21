@@ -5,6 +5,7 @@ import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/utils/alerts.dart';
 import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
+import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
 class GoogleAuthBtn extends StatelessWidget {
@@ -38,6 +39,8 @@ class GoogleAuthBtn extends StatelessWidget {
               final success =
                   await context.read<LoginBloc>().onLoginWithGoogle();
               if (success) {
+                // context.read<BooksBloc>().getFamousBooks();
+                // context.read<BooksBloc>().loadFavoritesBooks();
                 Navigator.pushReplacementNamed(context, HomeScreen.routeName);
               } else {
                 Alerts.buildScaffoldMessenger(

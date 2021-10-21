@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:take_home_project/core/constants/app_images.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/widgets/like_btn.dart';
 import 'package:take_home_project/features/books/ui/widgets/main_category_label.dart';
@@ -43,6 +45,7 @@ class BookDetailScreen extends StatelessWidget {
                     width: 40.dW,
                     margin: EdgeInsets.zero,
                     isFavorite: book.isFavorite ?? false,
+                    onLike: () => context.read<BooksBloc>().onLikeBook(book),
                   ),
                 ],
               ),

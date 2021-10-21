@@ -8,6 +8,7 @@ import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
+import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -46,7 +47,8 @@ class ProfileScreen extends StatelessWidget {
               title: Strings.logoutConfirmationMsg,
               onYes: () async {
                 await context.read<AuthBloc>().logOut();
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginScreen.routeName, (route) => false);
               },
             ),
           ),
@@ -63,8 +65,8 @@ class ProfileScreen extends StatelessWidget {
                   Alerts.alertDialog(
                     context: context,
                     content: Strings.deleteAccountSuccessMsg,
-                    onOk: () => Navigator.pushReplacementNamed(
-                        context, LoginScreen.routeName),
+                    onOk: () => Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false),
                   );
                 } else {
                   Navigator.pop(context);
@@ -72,8 +74,8 @@ class ProfileScreen extends StatelessWidget {
                     context: context,
                     isSucccess: false,
                     content: Strings.deleteAccountErrorMsg,
-                    onOk: () => Navigator.pushReplacementNamed(
-                        context, LoginScreen.routeName),
+                    onOk: () => Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false),
                   );
                 }
               },

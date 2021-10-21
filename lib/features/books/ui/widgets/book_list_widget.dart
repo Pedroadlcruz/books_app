@@ -10,8 +10,10 @@ class BookListWidget extends StatelessWidget {
   const BookListWidget({
     Key? key,
     required this.books,
+    this.showLikeBtn = true,
   }) : super(key: key);
   final List<Book> books;
+  final bool showLikeBtn;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -20,10 +22,13 @@ class BookListWidget extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final Book book = books[index];
         return BookCard(
+          showLikeBtn: showLikeBtn,
           book: book,
           onLike: () {
             print(' Tap Like');
-            context.read<BooksBloc>().addFavoriteBook(book);
+            context
+                .read<BooksBloc>()
+                .onLikeBook(book.copyWith(isFavorite: true));
           },
           onTap: () => Navigator.pushNamed(context, BookDetailScreen.routeName,
               arguments: book),

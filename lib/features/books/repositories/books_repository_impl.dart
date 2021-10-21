@@ -62,7 +62,7 @@ class BooksRepositoryImpl implements BooksRepository {
         final books = <Book>[];
         (jsonDecode(result.body) as Map<String, dynamic>).forEach((key, value) {
           final book = Book.fromFirebaseJson(value as Map<String, dynamic>);
-          books.add(book);
+          books.add(book.copyWith(uid: key));
         });
         return ResponseModel(success: true, books: books);
       } else {
@@ -89,15 +89,22 @@ class BooksRepositoryImpl implements BooksRepository {
       } else {
         return '';
       }
-    } on Exception catch (e) {
+    } on Exception {
       throw const QueryBooksFailure();
     }
   }
 
   @override
-  Future updateBook(Book book) async {
-    // await http.delete(url)
-    // TODO: implement updateBook
-    throw UnimplementedError();
+  Future deleteBook(Book book) async {
+    final userId = authBloc.currentUser.id;
+    final url = Uri.https(_baseFirebaseUrl, '$userId/${book.uid}.json');
+    try {
+      final result = await http.delete(url,
+          body: jsonEncode(book.toFirebaseJson()),
+          headers: {"provider": "google", "uid": userId});
+      print(result.body);
+    } on Exception {
+      throw const QueryBooksFailure();
+    }
   }
 }

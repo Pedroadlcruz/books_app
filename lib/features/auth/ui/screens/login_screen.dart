@@ -11,6 +11,8 @@ import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 import 'package:take_home_project/features/auth/ui/widgets/google_auth_btn.dart';
+import 'package:take_home_project/features/books/bloc/books_bloc.dart';
+import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
 import 'screens.dart';
 
@@ -120,7 +122,13 @@ class _LoginForm extends StatelessWidget {
                       if (!loginBloc.isValidForm()) return;
                       final success =
                           await context.read<LoginBloc>().onLoginRequest();
-                      if (!success) {
+                      if (success) {
+                        // context.read<BooksBloc>().getFamousBooks();
+                        // context.read<BooksBloc>().loadFavoritesBooks();
+
+                        Navigator.pushReplacementNamed(
+                            context, HomeScreen.routeName);
+                      } else {
                         Alerts.buildScaffoldMessenger(
                             context: context, text: loginBloc.errorMsg);
                       }

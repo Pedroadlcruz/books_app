@@ -7,5 +7,5 @@ abstract class BooksRepository {
   Future<ResponseModel> famousBooks();
   Future<ResponseModel> loadfavoritesBooks();
   Future<String> addBook(Book book);
-  Future updateBook(Book book);
+  Future deleteBook(Book book);
 }

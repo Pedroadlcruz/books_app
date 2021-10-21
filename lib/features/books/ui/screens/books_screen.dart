@@ -60,7 +60,8 @@ class _FamousBooks extends StatelessWidget {
           ? const Center(child: CircularProgressIndicator())
           : SizedBox(
               height: 670.dH,
-              child: BookListWidget(books: booksBloc.famous),
+              child:
+                  BookListWidget(showLikeBtn: false, books: booksBloc.famous),
             ),
     );
   }
@@ -77,10 +78,12 @@ class _SearchField extends StatelessWidget {
     return InkWell(
       onTap: () async {
         final selectedBook = await showSearch(
-            context: context,
-            delegate: BooksSearchDelegate(booksBloc,
-                searchFieldLabel: Strings.searchHintTxt));
-        if (selectedBook!.isNotEmpty) {
+          context: context,
+          delegate: BooksSearchDelegate(booksBloc,
+              searchFieldLabel: Strings.searchHintTxt),
+        );
+        if (selectedBook == null) return;
+        if (selectedBook.isNotEmpty) {
           Navigator.pushNamed(context, BookDetailScreen.routeName,
               arguments: selectedBook);
         }
