@@ -26,12 +26,16 @@ class BookListWidget extends StatelessWidget {
           book: book,
           onLike: () {
             print(' Tap Like');
-            context
-                .read<BooksBloc>()
-                .onLikeBook(book.copyWith(isFavorite: true));
+            // context
+            //     .read<BooksBloc>()
+            //     .onLikeBook(book.copyWith(isFavorite: false));
           },
-          onTap: () => Navigator.pushNamed(context, BookDetailScreen.routeName,
-              arguments: book),
+          onTap: () {
+            context.read<BooksBloc>().currentBook = book.copy();
+
+            Navigator.pushNamed(context, BookDetailScreen.routeName,
+                arguments: book);
+          },
         );
       },
     );

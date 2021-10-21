@@ -2,21 +2,21 @@ import 'package:take_home_project/core/constants/app_images.dart';
 
 class Book {
   /// The id of the book in Google books API
-  final String id;
+  String id;
 
   /// The id from Firebase Real Time DB
-  final String? uid;
-  final String? etag;
-  final bool? isFavorite;
+  String? uid;
+  String? etag;
+  bool? isFavorite;
 
   /// The informations about the book
   final BookInfo? info;
 
-  const Book({
+  Book({
     required this.id,
     this.etag,
     this.uid,
-    this.isFavorite = false,
+    this.isFavorite,
     this.info,
   });
 
@@ -33,17 +33,6 @@ class Book {
       info: BookInfo.fromJson(
         json['volumeInfo'] as Map<String, dynamic>,
       ),
-      // info: BookInfo(
-      //   title: json["title"] as String,
-      //   authors: [json["author"] as String],
-      //   averageRating: ((json['averageRating'] ?? 0) as num).toDouble(),
-      //   categories: [json["categories"] as String],
-      //   description: json["description"] as String,
-      //   imageLinks: ImageLinks(
-      //     thumbnail: json["imageLink"] as String,
-      //     smallThumbnail: json["imageLink"] as String,
-      //   ),
-      // ),
     );
   }
 
@@ -84,11 +73,19 @@ class Book {
     );
   }
 
-  static const empty = Book(id: '');
+  static Book empty = Book(id: '');
 
   bool get isEmpty => this == Book.empty;
 
   bool get isNotEmpty => this != Book.empty;
+
+  Book copy() => Book(
+        id: id,
+        uid: uid,
+        etag: etag,
+        isFavorite: isFavorite,
+        info: info,
+      );
 }
 
 class BookInfo {

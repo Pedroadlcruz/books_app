@@ -84,6 +84,7 @@ class _SearchField extends StatelessWidget {
         );
         if (selectedBook == null) return;
         if (selectedBook.isNotEmpty) {
+          context.read<BooksBloc>().currentBook = selectedBook.copy();
           Navigator.pushNamed(context, BookDetailScreen.routeName,
               arguments: selectedBook);
         }

@@ -21,6 +21,8 @@ class BooksBloc extends ChangeNotifier {
   bool loadingFamous = true;
   String errorLoadingFamous = '';
 
+  late Book currentBook;
+
   Future<List<Book>> getBooksByName(String query) async {
     try {
       final result =
@@ -100,6 +102,16 @@ class BooksBloc extends ChangeNotifier {
     if (result.isNotEmpty) {
       book.copyWith(uid: result);
       favorites.add(book);
+      notifyListeners();
+    }
+  }
+
+  void toggleFavorite() {
+    if (currentBook.isFavorite == null) {
+      currentBook.isFavorite = true;
+      notifyListeners();
+    } else {
+      currentBook.isFavorite = !currentBook.isFavorite!;
       notifyListeners();
     }
   }

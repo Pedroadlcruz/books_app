@@ -6,6 +6,7 @@ import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/features/books/bloc/book_detail_bloc.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/widgets/like_btn.dart';
@@ -16,6 +17,28 @@ class BookDetailScreen extends StatelessWidget {
   const BookDetailScreen({Key? key, required this.book}) : super(key: key);
   static const String routeName = 'book_detail_screen';
   final Book book;
+  @override
+  Widget build(BuildContext context) {
+    final currentBook = context.watch<BooksBloc>().currentBook;
+    return _Body(currentBook: currentBook);
+
+    // return ChangeNotifierProvider(
+    //   create: (_) => BookDetailBloc(currentBook),
+    //   child: Builder(builder: (context) {
+    //     return _Body(currentBook: context.watch<BookDetailBloc>().selectedBook);
+    //   }),
+    // );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({
+    Key? key,
+    required this.currentBook,
+  }) : super(key: key);
+
+  final Book currentBook;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +67,16 @@ class BookDetailScreen extends StatelessWidget {
                     height: 50.dH,
                     width: 40.dW,
                     margin: EdgeInsets.zero,
-                    isFavorite: book.isFavorite ?? false,
-                    onLike: () => context.read<BooksBloc>().onLikeBook(book),
+                    isFavorite: currentBook.isFavorite ?? false,
+                    onLike: () async {
+                      print(currentBook.uid);
+                      print(currentBook.isFavorite);
+                      print(currentBook.info!.title);
+
+                      context.read<BooksBloc>().toggleFavorite();
+                      // await context.read<BooksBloc>().onLikeBook(book.copyWith(
+                      //     isFavorite: currentBook.isFavorite ?? false));
+                    },
                   ),
                 ],
               ),
@@ -62,7 +93,7 @@ class BookDetailScreen extends StatelessWidget {
                     child: FadeInImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
-                        book.info?.imageLinks?.smallThumbnail! ??
+                        currentBook.info?.imageLinks?.smallThumbnail! ??
                             AppImages.bookAltUrl,
                       ),
                       placeholder: const AssetImage(AppImages.placeholder),
@@ -71,10 +102,10 @@ class BookDetailScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 19.dH),
-              if (book.info!.categories!.isNotEmpty)
+              if (currentBook.info!.categories!.isNotEmpty)
                 Wrap(
                   children: <Widget>[
-                    ...book.info!.categories!
+                    ...currentBook.info!.categories!
                         .map((categorie) =>
                             MainCategoryLabel(mainCategory: categorie))
                         .toList()
@@ -84,7 +115,7 @@ class BookDetailScreen extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: Text('by $_buildAuthorsString',
+                      child: Text('by  $_buildAuthorsString',
                           style: TextStyles.text
                               .copyWith(color: const Color(0xff979797)))),
                   const Icon(
@@ -93,7 +124,7 @@ class BookDetailScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 6.dW),
                   Text(
-                    book.info?.averageRating.toString() ?? '-',
+                    currentBook.info?.averageRating.toString() ?? '-',
                     style: TextStyles.text,
                   ),
                 ],
@@ -102,14 +133,14 @@ class BookDetailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: Text(
-                  book.info?.title ?? ' ',
+                  currentBook.info?.title ?? ' ',
                   textAlign: TextAlign.start,
                   style: TextStyles.mainLabel.copyWith(fontSize: 24.fS),
                 ),
               ),
               SizedBox(height: 10.dH),
               Text(
-                book.info?.description ?? Strings.noDescriptionDetail,
+                currentBook.info?.description ?? Strings.noDescriptionDetail,
                 textAlign: TextAlign.start,
                 style: TextStyles.text.copyWith(height: 1.6.dH),
               ),
@@ -123,8 +154,11 @@ class BookDetailScreen extends StatelessWidget {
   }
 
   String get _buildAuthorsString {
-    final String authors = book.info!.authors!.isNotEmpty
-        ? book.info!.authors!.toString().replaceAll("[", "").replaceAll("]", "")
+    final String authors = currentBook.info!.authors!.isNotEmpty
+        ? currentBook.info!.authors!
+            .toString()
+            .replaceAll("[", "")
+            .replaceAll("]", "")
         : 'anonymous';
     return authors;
   }
