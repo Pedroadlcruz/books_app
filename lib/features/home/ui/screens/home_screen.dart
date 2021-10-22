@@ -31,7 +31,7 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appUser = context.select((AuthBloc user) => user.currentUser);
-    context.read<TabBloc>().onUpdateTab(AppBottomTab.home);
+    // context.read<TabBloc>().onUpdateTab(AppBottomTab.home);
 
     return Scaffold(
       backgroundColor: Colors.white,

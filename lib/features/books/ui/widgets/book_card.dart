@@ -16,12 +16,14 @@ class BookCard extends StatelessWidget {
     this.onLike,
     this.decoration,
     required this.book,
+    this.showLikeBtn = true,
   }) : super(key: key);
 
   final Book book;
   final void Function()? onTap;
   final void Function()? onLike;
   final Decoration? decoration;
+  final bool showLikeBtn;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -94,11 +96,13 @@ class BookCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          right: 0,
-          bottom: 22.dH,
-          child: LikeBtn(onLike: onLike, isFavorite: book.isFavorite ?? false),
-        ),
+        if (showLikeBtn)
+          Positioned(
+            right: 0,
+            bottom: 22.dH,
+            child:
+                LikeBtn(onLike: onLike, isFavorite: book.isFavorite ?? false),
+          ),
       ],
     );
   }

@@ -21,6 +21,19 @@ class BooksBloc extends ChangeNotifier {
   bool loadingFamous = true;
   String errorLoadingFamous = '';
 
+  String errorAddingfavorites = '';
+
+  late Book currentBook;
+
+  void onCurrentBookSelection(Book selectedBook) {
+    final search = favorites.indexWhere((book) => book.id == selectedBook.id);
+    if (search == -1) {
+      currentBook = selectedBook.copy();
+    } else {
+      currentBook = favorites[search].copy();
+    }
+  }
+
   Future<List<Book>> getBooksByName(String query) async {
     try {
       final result =
@@ -30,8 +43,6 @@ class BooksBloc extends ChangeNotifier {
       } else {
         return [];
       }
-
-      // print(result.result);
     } on Exception {
       throw const QueryBooksFailure();
     }
@@ -48,13 +59,17 @@ class BooksBloc extends ChangeNotifier {
         notifyListeners();
         return result.books!;
       } else {
-        errorLoadingFamous = 'Unespected load error';
-        loadingFamous = false;
-        notifyListeners();
+        _loadingFamousError();
       }
     } on QueryBooksFailure {
-      throw const QueryBooksFailure();
+      _loadingFamousError();
     }
+  }
+
+  void _loadingFamousError() {
+    errorLoadingFamous = 'Unespected load error';
+    loadingFamous = false;
+    notifyListeners();
   }
 
   Future loadFavoritesBooks() async {
@@ -67,17 +82,68 @@ class BooksBloc extends ChangeNotifier {
         loadingFavorites = false;
         notifyListeners();
       } else {
-        errorLoadingFavorites = 'Unespected load error';
-        loadingFavorites = false;
-        notifyListeners();
+        _loadingFavoriteError();
       }
     } on QueryBooksFailure {
-      throw const QueryBooksFailure();
+      _loadingFavoriteError();
     }
   }
 
-  Future addFavoriteBook(Book book) async {
-    final result = await _booksRepository.addBook(book);
-    print('Todo bien');
+  void _loadingFavoriteError() {
+    errorLoadingFavorites = 'Unespected load error';
+    loadingFavorites = false;
+    notifyListeners();
+  }
+
+  Future<bool> onLikeTab() async {
+    if (currentBook.uid == null || currentBook.uid!.isEmpty) {
+      return _addToFavorites(currentBook);
+    } else if (currentBook.uid!.isNotEmpty) {
+      return _deleteFromFavorites(currentBook);
+    }
+    return true;
+  }
+
+  Future<bool> onDislikeTab(Book book) async {
+    return _deleteFromFavorites(book);
+  }
+
+  Future<bool> _deleteFromFavorites(Book book) async {
+    try {
+      await _booksRepository.deleteBook(book);
+      favorites.removeWhere((element) => element.uid == book.uid);
+      notifyListeners();
+      return true;
+    } on Exception {
+      errorAddingfavorites = 'Unespected error while deleting book';
+      notifyListeners();
+      return false;
+    }
+  }
+
+  Future<bool> _addToFavorites(Book book) async {
+    try {
+      final result = await _booksRepository.addBook(book);
+      if (result.isNotEmpty) {
+        currentBook.uid = result;
+        favorites.add(currentBook);
+        notifyListeners();
+      }
+      return true;
+    } on Exception {
+      errorAddingfavorites = 'Unespected error while adding book';
+      notifyListeners();
+      return false;
+    }
+  }
+
+  void toggleFavorite() {
+    if (currentBook.isFavorite == null) {
+      currentBook.isFavorite = true;
+      notifyListeners();
+    } else {
+      currentBook.isFavorite = !currentBook.isFavorite!;
+      notifyListeners();
+    }
   }
 }

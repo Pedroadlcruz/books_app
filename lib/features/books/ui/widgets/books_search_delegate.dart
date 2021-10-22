@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:take_home_project/core/theme/app_colors.dart';
 
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
+import 'package:take_home_project/core/extensions/responsive.dart';
+import 'package:take_home_project/core/theme/text_styles.dart';
+
+import 'book_list_widget.dart';
 
 class BooksSearchDelegate extends SearchDelegate<Book> {
   @override
@@ -26,17 +32,26 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
   @override
   Widget buildResults(BuildContext context) {
     if (query.trim().isEmpty) {
-      return const Text('Empty query');
+      return const _ShowErrorMsj(
+        icon: FontAwesomeIcons.search,
+        msg: 'Please type some text to start searching..',
+      );
     }
 
     return FutureBuilder(
       future: booksBloc.getBooksByName(query),
       builder: (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
         if (snapshot.hasError) {
-          return const Center(child: Text('A loading error has occurred'));
+          return const _ShowErrorMsj(
+            icon: FontAwesomeIcons.exclamation,
+            msg: 'A loading error has occurred, try typing a correct value',
+          );
         }
         if (snapshot.hasData) {
-          return _showBooks(snapshot.data!);
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 36.dW),
+            child: BookListWidget(books: snapshot.data!, showLikeBtn: false),
+          );
         } else {
           return const Center(child: CircularProgressIndicator());
         }
@@ -48,17 +63,39 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
   Widget buildSuggestions(BuildContext context) {
     return const ListTile(title: Text(' '));
   }
+}
 
-  Widget _showBooks(List<Book> books) {
-    return ListView.builder(
-      itemCount: books.length,
-      itemBuilder: (BuildContext context, int index) {
-        final Book book = books[index];
-        return ListTile(
-          title: Text(book.info!.title!),
-          onTap: () => close(context, book),
-        );
-      },
+class _ShowErrorMsj extends StatelessWidget {
+  const _ShowErrorMsj({
+    Key? key,
+    required this.msg,
+    required this.icon,
+  }) : super(key: key);
+  final String msg;
+  final IconData icon;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        height: 470.dH,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(icon, size: 60.dW),
+            SizedBox(height: 32.dH),
+            SizedBox(
+              height: 70.dW,
+              width: 210.dW,
+              child: Text(
+                msg,
+                textAlign: TextAlign.center,
+                style: TextStyles.text
+                    .copyWith(fontSize: 18.fS, color: AppColors.color979797),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

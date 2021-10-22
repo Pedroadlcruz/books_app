@@ -46,7 +46,8 @@ class ProfileScreen extends StatelessWidget {
               title: Strings.logoutConfirmationMsg,
               onYes: () async {
                 await context.read<AuthBloc>().logOut();
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginScreen.routeName, (route) => false);
               },
             ),
           ),
@@ -63,8 +64,8 @@ class ProfileScreen extends StatelessWidget {
                   Alerts.alertDialog(
                     context: context,
                     content: Strings.deleteAccountSuccessMsg,
-                    onOk: () => Navigator.pushReplacementNamed(
-                        context, LoginScreen.routeName),
+                    onOk: () => Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false),
                   );
                 } else {
                   Navigator.pop(context);
@@ -72,8 +73,8 @@ class ProfileScreen extends StatelessWidget {
                     context: context,
                     isSucccess: false,
                     content: Strings.deleteAccountErrorMsg,
-                    onOk: () => Navigator.pushReplacementNamed(
-                        context, LoginScreen.routeName),
+                    onOk: () => Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false),
                   );
                 }
               },

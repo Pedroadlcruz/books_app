@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:take_home_project/core/constants/app_images.dart';
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
+import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
@@ -31,64 +33,56 @@ class FavoritesScreen extends StatelessWidget {
             SizedBox(height: 28.dH),
             booksBloc.loadingFavorites
                 ? const Center(child: CircularProgressIndicator())
-                : SizedBox(
-                    height: 670.dH,
-                    child: BookListWidget(books: booksBloc.favorites),
-                  ),
-
-            // ListView(
-            //   padding: EdgeInsets.zero,
-            //   children: [
-            //     BookCard(
-            //       book: Book.empty,
-            //       decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.all(
-            //           Radius.circular(15.dW),
-            //         ),
-            //       ),
-            //       onLike: () => print(' Tap Like'),
-            //       onTap: () => print(' Tap Card'),
-            //     ),
-            //     BookCard(
-            //       book: Book.empty,
-            //       decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.all(
-            //           Radius.circular(15.dW),
-            //         ),
-            //       ),
-            //       onTap: () => Navigator.pushNamed(
-            //           context, BookDetailScreen.routeName),
-            //     ),
-            //     BookCard(
-            //       book: Book.empty,
-            //       decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.all(
-            //           Radius.circular(15.dW),
-            //         ),
-            //       ),
-            //       onLike: () => print(' Tap Like'),
-            //       onTap: () => print(' Tap Card'),
-            //     ),
-            //     BookCard(
-            //       book: Book.empty,
-            //       decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.all(
-            //           Radius.circular(15.dW),
-            //         ),
-            //       ),
-            //       onTap: () => Navigator.pushNamed(
-            //           context, BookDetailScreen.routeName),
-            //     ),
-            //   ],
-            // ),
+                : _FavoritesView(booksBloc: booksBloc),
           ],
         ),
       ),
       bottomNavigationBar: const BottomTabSelector(),
     );
+  }
+}
+
+class _FavoritesView extends StatelessWidget {
+  const _FavoritesView({
+    Key? key,
+    required this.booksBloc,
+  }) : super(key: key);
+
+  final BooksBloc booksBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    if (booksBloc.favorites.isNotEmpty) {
+      return SizedBox(
+        height: 670.dH,
+        child: BookListWidget(books: booksBloc.favorites),
+      );
+    } else {
+      return SizedBox(
+        height: 670.dH,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              AppImages.blueHeart,
+              height: 118.dW,
+              width: 132.dW,
+              color: AppColors.color979797,
+            ),
+            SizedBox(height: 32.dH),
+            SizedBox(
+              height: 70.dW,
+              width: 210.dW,
+              child: Text(
+                Strings.noFavoriteBooksMsg,
+                textAlign: TextAlign.center,
+                style: TextStyles.text
+                    .copyWith(fontSize: 18.fS, color: AppColors.color979797),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
