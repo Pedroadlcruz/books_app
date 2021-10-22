@@ -1,3 +1,4 @@
+import 'package:take_home_project/core/error/books_exceptions.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 
 class ResponseModel {
@@ -12,6 +13,9 @@ class ResponseModel {
     this.books,
   });
   factory ResponseModel.fromJson(Map<String, dynamic> json) {
+    if (json['items'] == null) {
+      throw const QueryBooksFailure();
+    }
     final Iterable bookList = json['items'] as Iterable;
     final List<Book> books =
         bookList.map((e) => Book.fromJson(e as Map<String, dynamic>)).toList();

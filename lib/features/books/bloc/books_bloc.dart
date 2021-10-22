@@ -25,6 +25,15 @@ class BooksBloc extends ChangeNotifier {
 
   late Book currentBook;
 
+  void onCurrentBookSelection(Book selectedBook) {
+    final search = favorites.indexWhere((book) => book.id == selectedBook.id);
+    if (search == -1) {
+      currentBook = selectedBook.copy();
+    } else {
+      currentBook = favorites[search].copy();
+    }
+  }
+
   Future<List<Book>> getBooksByName(String query) async {
     try {
       final result =

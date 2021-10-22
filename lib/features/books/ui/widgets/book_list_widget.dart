@@ -44,8 +44,8 @@ class BookListWidget extends StatelessWidget {
             },
           ),
           onTap: () {
-            context.read<BooksBloc>().currentBook = book.copy();
-
+            // context.read<BooksBloc>().currentBook = book.copy();
+            context.read<BooksBloc>().onCurrentBookSelection(book);
             Navigator.pushNamed(context, BookDetailScreen.routeName,
                 arguments: book);
           },

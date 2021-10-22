@@ -32,14 +32,20 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
   @override
   Widget buildResults(BuildContext context) {
     if (query.trim().isEmpty) {
-      return const Text('Empty query');
+      return const _ShowErrorMsj(
+        icon: FontAwesomeIcons.search,
+        msg: 'Please type some text to start searching..',
+      );
     }
 
     return FutureBuilder(
       future: booksBloc.getBooksByName(query),
       builder: (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
         if (snapshot.hasError) {
-          return const _ShowErrorMsj();
+          return const _ShowErrorMsj(
+            icon: FontAwesomeIcons.exclamation,
+            msg: 'A loading error has occurred, try typing a correct value',
+          );
         }
         if (snapshot.hasData) {
           return Padding(
@@ -62,28 +68,33 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
 class _ShowErrorMsj extends StatelessWidget {
   const _ShowErrorMsj({
     Key? key,
+    required this.msg,
+    required this.icon,
   }) : super(key: key);
-
+  final String msg;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 470.dH,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(FontAwesomeIcons.exclamation, size: 60.dW),
-          SizedBox(height: 32.dH),
-          SizedBox(
-            height: 70.dW,
-            width: 210.dW,
-            child: Text(
-              'A loading error has occurred',
-              textAlign: TextAlign.center,
-              style: TextStyles.text
-                  .copyWith(fontSize: 18.fS, color: AppColors.color979797),
+    return Center(
+      child: SizedBox(
+        height: 470.dH,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(icon, size: 60.dW),
+            SizedBox(height: 32.dH),
+            SizedBox(
+              height: 70.dW,
+              width: 210.dW,
+              child: Text(
+                msg,
+                textAlign: TextAlign.center,
+                style: TextStyles.text
+                    .copyWith(fontSize: 18.fS, color: AppColors.color979797),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
