@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:take_home_project/core/constants/strings.dart';
+import 'package:take_home_project/core/utils/alerts.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/screens/book_detail_screen.dart';
@@ -24,9 +26,23 @@ class BookListWidget extends StatelessWidget {
         return BookCard(
           showLikeBtn: showLikeBtn,
           book: book,
-          onLike: () {
-            context.read<BooksBloc>().onDislikeTab(book);
-          },
+          onLike: () => Alerts.confirmDialog(
+            context: context,
+            title: Strings.dislikeConfirmationMsg,
+            onYes: () async {
+              final success =
+                  await context.read<BooksBloc>().onDislikeTab(book);
+              if (!success) {
+                Navigator.pop(context);
+                Alerts.buildScaffoldMessenger(
+                  context: context,
+                  text: context.watch<BooksBloc>().errorAddingfavorites,
+                );
+              } else {
+                Navigator.pop(context);
+              }
+            },
+          ),
           onTap: () {
             context.read<BooksBloc>().currentBook = book.copy();
 

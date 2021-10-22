@@ -123,9 +123,6 @@ class _LoginForm extends StatelessWidget {
                       final success =
                           await context.read<LoginBloc>().onLoginRequest();
                       if (success) {
-                        // context.read<BooksBloc>().getFamousBooks();
-                        // context.read<BooksBloc>().loadFavoritesBooks();
-
                         Navigator.pushReplacementNamed(
                             context, HomeScreen.routeName);
                       } else {

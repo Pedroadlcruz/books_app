@@ -8,7 +8,6 @@ import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
-import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
 class ProfileScreen extends StatelessWidget {

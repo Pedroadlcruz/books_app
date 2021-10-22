@@ -21,6 +21,8 @@ class BooksBloc extends ChangeNotifier {
   bool loadingFamous = true;
   String errorLoadingFamous = '';
 
+  String errorAddingfavorites = '';
+
   late Book currentBook;
 
   Future<List<Book>> getBooksByName(String query) async {
@@ -48,13 +50,17 @@ class BooksBloc extends ChangeNotifier {
         notifyListeners();
         return result.books!;
       } else {
-        errorLoadingFamous = 'Unespected load error';
-        loadingFamous = false;
-        notifyListeners();
+        _loadingFamousError();
       }
     } on QueryBooksFailure {
-      throw const QueryBooksFailure();
+      _loadingFamousError();
     }
+  }
+
+  void _loadingFamousError() {
+    errorLoadingFamous = 'Unespected load error';
+    loadingFamous = false;
+    notifyListeners();
   }
 
   Future loadFavoritesBooks() async {
@@ -67,43 +73,58 @@ class BooksBloc extends ChangeNotifier {
         loadingFavorites = false;
         notifyListeners();
       } else {
-        errorLoadingFavorites = 'Unespected load error';
-        loadingFavorites = false;
-        notifyListeners();
+        _loadingFavoriteError();
       }
     } on QueryBooksFailure {
-      throw const QueryBooksFailure();
+      _loadingFavoriteError();
     }
   }
 
-  Future onLikeTab() async {
+  void _loadingFavoriteError() {
+    errorLoadingFavorites = 'Unespected load error';
+    loadingFavorites = false;
+    notifyListeners();
+  }
+
+  Future<bool> onLikeTab() async {
     if (currentBook.uid == null || currentBook.uid!.isEmpty) {
-      await _addToFavorites(currentBook);
+      return _addToFavorites(currentBook);
     } else if (currentBook.uid!.isNotEmpty) {
-      await _deleteFromFavorites(currentBook);
+      return _deleteFromFavorites(currentBook);
     }
+    return true;
   }
 
-  Future onDislikeTab(Book book) async {
-    await _deleteFromFavorites(book);
+  Future<bool> onDislikeTab(Book book) async {
+    return _deleteFromFavorites(book);
   }
 
-  Future _deleteFromFavorites(Book book) async {
+  Future<bool> _deleteFromFavorites(Book book) async {
     try {
       await _booksRepository.deleteBook(book);
       favorites.removeWhere((element) => element.uid == book.uid);
       notifyListeners();
-    } catch (e) {
-      print(e);
+      return true;
+    } on Exception {
+      errorAddingfavorites = 'Unespected error while deleting book';
+      notifyListeners();
+      return false;
     }
   }
 
-  Future<void> _addToFavorites(Book book) async {
-    final result = await _booksRepository.addBook(book);
-    if (result.isNotEmpty) {
-      currentBook.uid = result;
-      favorites.add(currentBook);
+  Future<bool> _addToFavorites(Book book) async {
+    try {
+      final result = await _booksRepository.addBook(book);
+      if (result.isNotEmpty) {
+        currentBook.uid = result;
+        favorites.add(currentBook);
+        notifyListeners();
+      }
+      return true;
+    } on Exception {
+      errorAddingfavorites = 'Unespected error while adding book';
       notifyListeners();
+      return false;
     }
   }
 

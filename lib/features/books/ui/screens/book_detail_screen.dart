@@ -6,6 +6,7 @@ import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/core/utils/alerts.dart';
 import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/features/books/ui/widgets/like_btn.dart';
@@ -62,7 +63,39 @@ class _Body extends StatelessWidget {
                     isFavorite: currentBook.isFavorite ?? false,
                     onLike: () async {
                       context.read<BooksBloc>().toggleFavorite();
-                      await context.read<BooksBloc>().onLikeTab();
+                      if (currentBook.isFavorite == null ||
+                          currentBook.isFavorite == false) {
+                        Alerts.confirmDialog(
+                          context: context,
+                          title: Strings.dislikeConfirmationMsg,
+                          onYes: () async {
+                            final success =
+                                await context.read<BooksBloc>().onLikeTab();
+                            if (!success) {
+                              Navigator.pop(context);
+                              Alerts.buildScaffoldMessenger(
+                                context: context,
+                                text: context
+                                    .watch<BooksBloc>()
+                                    .errorAddingfavorites,
+                              );
+                            } else {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            }
+                          },
+                        );
+                      } else {
+                        final success =
+                            await context.read<BooksBloc>().onLikeTab();
+                        if (!success) {
+                          Alerts.buildScaffoldMessenger(
+                            context: context,
+                            text:
+                                context.watch<BooksBloc>().errorAddingfavorites,
+                          );
+                        }
+                      }
                     },
                   ),
                 ],

@@ -7,6 +7,8 @@ import 'package:take_home_project/features/books/models/book.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 
+import 'book_list_widget.dart';
+
 class BooksSearchDelegate extends SearchDelegate<Book> {
   @override
   final String searchFieldLabel;
@@ -40,7 +42,10 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
           return const _ShowErrorMsj();
         }
         if (snapshot.hasData) {
-          return _showBooks(snapshot.data!);
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 36.dW),
+            child: BookListWidget(books: snapshot.data!, showLikeBtn: false),
+          );
         } else {
           return const Center(child: CircularProgressIndicator());
         }
@@ -51,19 +56,6 @@ class BooksSearchDelegate extends SearchDelegate<Book> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return const ListTile(title: Text(' '));
-  }
-
-  Widget _showBooks(List<Book> books) {
-    return ListView.builder(
-      itemCount: books.length,
-      itemBuilder: (BuildContext context, int index) {
-        final Book book = books[index];
-        return ListTile(
-          title: Text(book.info!.title!),
-          onTap: () => close(context, book),
-        );
-      },
-    );
   }
 }
 

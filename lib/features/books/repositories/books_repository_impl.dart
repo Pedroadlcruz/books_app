@@ -68,7 +68,6 @@ class BooksRepositoryImpl implements BooksRepository {
         return ResponseModel(success: false, books: []);
       }
     } catch (e) {
-      print('Load Favorites exception ---> $e');
       throw QueryBooksFailure(e.toString());
     }
   }
@@ -82,7 +81,6 @@ class BooksRepositoryImpl implements BooksRepository {
           body: jsonEncode(book.toFirebaseJson()),
           headers: {"provider": "google", "uid": userId});
       if (result.statusCode == 200) {
-        print(result.body);
         final decodeData = jsonDecode(result.body);
         return decodeData['name'] as String;
       } else {
@@ -98,10 +96,9 @@ class BooksRepositoryImpl implements BooksRepository {
     final userId = authBloc.currentUser.id;
     final url = Uri.https(_baseFirebaseUrl, '$userId/${book.uid}.json');
     try {
-      final result = await http.delete(url,
+      await http.delete(url,
           body: jsonEncode(book.toFirebaseJson()),
           headers: {"provider": "google", "uid": userId});
-      print(result.body);
     } on Exception {
       throw const QueryBooksFailure();
     }
