@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
-import 'package:take_home_project/features/auth/repositories/auth_exceptions.dart';
+import 'package:take_home_project/core/error/auth_exceptions.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 
 class AuthBloc extends ChangeNotifier {
@@ -27,8 +28,17 @@ class AuthBloc extends ChangeNotifier {
     try {
       await _authRepository.logOut();
     } on LogOutFailure {
-      errorMsg = 'An unknown failure occurred.';
+      errorMsg = Strings.unknownFailure;
       notifyListeners();
+    }
+  }
+
+  Future<bool> deleteAccount() async {
+    try {
+      await _authRepository.deleteAccount();
+      return true;
+    } on DeleteAccountFailure {
+      return false;
     }
   }
 

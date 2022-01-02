@@ -7,7 +7,6 @@ import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/core/widgets/user_profile_image.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
-import 'package:take_home_project/features/auth/ui/screens/change_password.dart';
 import 'package:take_home_project/features/auth/ui/screens/screens.dart';
 import 'package:take_home_project/features/home/ui/widgets/bottom_tab_selector.dart';
 
@@ -41,19 +40,14 @@ class ProfileScreen extends StatelessWidget {
           Text(appUser.email ?? " ", style: TextStyles.blueText),
           SizedBox(height: 90.dH),
           AppBtn(
-            label: Strings.changePassword,
-            onPressed: () =>
-                Navigator.pushNamed(context, ChangePasswordScreen.routeName),
-          ),
-          SizedBox(height: 18.dH),
-          AppBtn(
             label: Strings.logout,
             onPressed: () => Alerts.confirmDialog(
               context: context,
               title: Strings.logoutConfirmationMsg,
               onYes: () async {
                 await context.read<AuthBloc>().logOut();
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginScreen.routeName, (route) => false);
               },
             ),
           ),
@@ -63,7 +57,27 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () => Alerts.confirmDialog(
               context: context,
               title: Strings.deleteAccountConfirmationMsg,
-              onYes: () {},
+              onYes: () async {
+                final result = await context.read<AuthBloc>().deleteAccount();
+                if (result) {
+                  Navigator.pop(context);
+                  Alerts.alertDialog(
+                    context: context,
+                    content: Strings.deleteAccountSuccessMsg,
+                    onOk: () => Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false),
+                  );
+                } else {
+                  Navigator.pop(context);
+                  Alerts.alertDialog(
+                    context: context,
+                    isSucccess: false,
+                    content: Strings.deleteAccountErrorMsg,
+                    onOk: () => Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false),
+                  );
+                }
+              },
             ),
           ),
         ],

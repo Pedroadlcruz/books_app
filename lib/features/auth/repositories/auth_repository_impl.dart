@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:take_home_project/features/auth/models/user.dart';
 
-import 'auth_exceptions.dart';
+import '../../../core/error/auth_exceptions.dart';
 import 'auth_repository.dart';
 
 /// Repository which manages user authentication.
@@ -101,6 +101,21 @@ class AuthRepositoryImpl implements AuthRepository {
       throw const LogInWithGoogleFailure();
     }
   }
+
+  /// Delete account of the current user
+  ///
+  /// Throws a [DeleteAcouuntFailure] if an exception occurs.
+  ///
+  @override
+  Future<void> forgotPassword(String email) async =>
+      _firebaseAuth.sendPasswordResetEmail(email: email);
+
+  /// Delete account of the current user
+  ///
+  /// Throws a [DeleteAcouuntFailure] if an exception occurs.
+  ///
+  @override
+  Future<void> deleteAccount() async => _firebaseAuth.currentUser!.delete();
 
   /// Signs out the current user which will emit
   /// [User.empty] from the [user] Stream.

@@ -23,6 +23,7 @@ class MainCategoryLabel extends StatelessWidget {
       child: Text(
         mainCategory,
         style: TextStyles.blueText.copyWith(fontSize: 13.fS),
+        textAlign: TextAlign.center,
       ),
     );
   }

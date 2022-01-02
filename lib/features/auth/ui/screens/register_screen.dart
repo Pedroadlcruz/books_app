@@ -158,20 +158,6 @@ class _SignUpForm extends StatelessWidget {
               loginBloc: loginBloc,
               label: Strings.signUpWithGoogle,
             ),
-            // OutlinedButton.icon(
-            //   icon: const FaIcon(FontAwesomeIcons.google,
-            //       color: AppColors.primaryColor),
-            //   label: Text(
-            //     Strings.signUpWithGoogle,
-            //     style: TextStyles.blueText,
-            //   ),
-            //   style: OutlinedButton.styleFrom(
-            //     minimumSize: const Size(310.0, 53.0),
-            //     primary: Colors.white,
-            //     side: const BorderSide(color: AppColors.primaryColor),
-            //   ),
-            //   onPressed: () {},
-            // ),
             SizedBox(height: 19.dH),
           ],
         ),

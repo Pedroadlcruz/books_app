@@ -1,6 +1,6 @@
 class Strings {
   // App
-  static const appTitle = "Take Home Projects";
+  static const appTitle = "Books App";
 
   // Register
 
@@ -35,6 +35,11 @@ class Strings {
   static const forgotPasswordMsj =
       "Please enter your email. We will send you a email to reset your password.";
   static const sendBtn = "Send";
+  static const forgotPasswordSuccessMsg =
+      "We have sent a message to your email, so you can update your password";
+
+  static const unknownException = 'Check your internet conection.';
+  static const unknownFailure = 'An unknown failure occurred.';
 
   //Bottom tab selector
   static const home = "Home";
@@ -51,6 +56,10 @@ class Strings {
   static const famousBooks = "Famous Books";
   static const searchHintTxt = "Search for books...";
   static const bookDetail = "Book detail";
+  static const noDescriptionDetail = "No description detail";
+  static const noFavoriteBooksMsg = "You have no favorite books added";
+  static const dislikeConfirmationMsg =
+      "Are you sure you want to dislike this book?";
   // Profile
   static const logout = "Logout";
   static const logoutConfirmationMsg = "Are you sure you want to logout";
@@ -58,7 +67,7 @@ class Strings {
   static const deleteAccount = "Delete account";
   static const deleteAccountConfirmationMsg =
       "Are you sure you want to delete account";
-  //Change password
-  static const newPassword = "New password";
-  static const confirmPassword = "Confirm password";
+  static const deleteAccountSuccessMsg = 'Account deleted successfully';
+  static const deleteAccountErrorMsg =
+      'Sorry, Log in again before retrying this request.';
 }

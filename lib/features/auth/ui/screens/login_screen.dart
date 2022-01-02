@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:take_home_project/core/constants/strings.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/extensions/validators.dart';
-import 'package:take_home_project/core/theme/app_colors.dart';
 import 'package:take_home_project/core/theme/input_decorations.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
 import 'package:take_home_project/core/utils/alerts.dart';
@@ -13,6 +11,7 @@ import 'package:take_home_project/core/widgets/app_btn.dart';
 import 'package:take_home_project/features/auth/bloc/login_bloc.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 import 'package:take_home_project/features/auth/ui/widgets/google_auth_btn.dart';
+import 'package:take_home_project/features/books/bloc/books_bloc.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
 import 'screens.dart';
@@ -123,7 +122,10 @@ class _LoginForm extends StatelessWidget {
                       if (!loginBloc.isValidForm()) return;
                       final success =
                           await context.read<LoginBloc>().onLoginRequest();
-                      if (!success) {
+                      if (success) {
+                        Navigator.pushReplacementNamed(
+                            context, HomeScreen.routeName);
+                      } else {
                         Alerts.buildScaffoldMessenger(
                             context: context, text: loginBloc.errorMsg);
                       }

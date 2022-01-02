@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:take_home_project/features/auth/repositories/auth_exceptions.dart';
+import 'package:take_home_project/core/constants/strings.dart';
+import 'package:take_home_project/core/error/auth_exceptions.dart';
 import 'package:take_home_project/features/auth/repositories/auth_repository_impl.dart';
 
 class LoginBloc extends ChangeNotifier {
@@ -45,6 +46,11 @@ class LoginBloc extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
       return false;
+    } on Exception {
+      errorMsg = Strings.unknownException;
+      _isLoading = false;
+      notifyListeners();
+      return false;
     }
   }
 
@@ -52,6 +58,7 @@ class LoginBloc extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     try {
+      await _authRepository.logOut();
       await _authRepository.logInWithGoogle();
       _isLoading = false;
       notifyListeners();

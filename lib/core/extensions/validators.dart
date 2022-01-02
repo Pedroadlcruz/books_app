@@ -1,8 +1,11 @@
 extension FormValidatorsExt on String {
+  //Email regular expresion
   static final RegExp _emailRegExp = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
   );
 
+  /// Returns [null] if given string [isNotEmpty] and
+  /// [length] is greater than or equal to [2]
   String? get isNameValid {
     if (isEmpty) {
       return 'Please write your name.';
@@ -14,6 +17,8 @@ extension FormValidatorsExt on String {
     }
   }
 
+  /// Returns [null] if given string [isNotEmpty] and
+  /// [hasMatch] with the given email regular expresion
   String? get isEmailValid {
     if (isEmpty) {
       return 'Please write your email.';
@@ -25,6 +30,8 @@ extension FormValidatorsExt on String {
     }
   }
 
+  /// Returns [null] if given string [isNotEmpty] and
+  /// [length] is greater than or equal to [8]
   String? get isPasswordValid {
     if (isEmpty) {
       return 'Please write your password.';
@@ -36,6 +43,8 @@ extension FormValidatorsExt on String {
     }
   }
 
+  /// Returns [null] if given string [isNotEmpty] and
+  /// [is equal] to the given password
   String? confirmPaswordValidator(String newPassword) {
     if (isEmpty) {
       return 'Please repeat the new password.';

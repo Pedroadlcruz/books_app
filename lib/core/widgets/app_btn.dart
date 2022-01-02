@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Blue label custom Button
 class AppBtn extends StatelessWidget {
   const AppBtn({
     Key? key,

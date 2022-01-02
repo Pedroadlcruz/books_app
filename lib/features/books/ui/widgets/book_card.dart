@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:take_home_project/core/constants/app_images.dart';
 import 'package:take_home_project/core/extensions/responsive.dart';
 import 'package:take_home_project/core/theme/box_decorators.dart';
 import 'package:take_home_project/core/theme/text_styles.dart';
+import 'package:take_home_project/features/books/models/book.dart';
 
 import 'like_btn.dart';
 import 'main_category_label.dart';
@@ -10,25 +12,18 @@ import 'main_category_label.dart';
 class BookCard extends StatelessWidget {
   const BookCard({
     Key? key,
-    required this.title,
-    required this.author,
-    required this.mainCategory,
-    required this.imageLink,
-    required this.averageRating,
     this.onTap,
     this.onLike,
-    this.isFavorite = false,
     this.decoration,
+    required this.book,
+    this.showLikeBtn = true,
   }) : super(key: key);
-  final String title;
-  final String author;
-  final String mainCategory;
-  final String imageLink;
-  final String averageRating;
-  final bool isFavorite;
+
+  final Book book;
   final void Function()? onTap;
   final void Function()? onLike;
   final Decoration? decoration;
+  final bool showLikeBtn;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -36,19 +31,26 @@ class BookCard extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Container(
-            height: 195.dH,
+            // height: 195.dH,
             width: 340.dW,
             margin: EdgeInsets.only(bottom: 26.dW),
+            padding: EdgeInsets.symmetric(vertical: 18.dH),
             decoration: decoration ?? whiteBoxDecoration,
             child: Row(
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(15.dW)),
-                  child: Image.network(
-                    imageLink,
+                  child: SizedBox(
                     height: 181.dH,
                     width: 128.dW,
-                    fit: BoxFit.cover,
+                    child: FadeInImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        book.info?.imageLinks?.smallThumbnail! ??
+                            AppImages.bookAltUrl,
+                      ),
+                      placeholder: const AssetImage(AppImages.placeholder),
+                    ),
                   ),
                 ),
                 SizedBox(width: 16.dW),
@@ -56,13 +58,22 @@ class BookCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('by $author', style: TextStyles.text),
+                    Container(
+                        constraints: BoxConstraints(maxWidth: 160.dW),
+                        child: Text('by $_buildAuthorsString',
+                            style: TextStyles.text)),
                     SizedBox(height: 6.dH),
-                    Text(title,
-                        style: TextStyles.mainLabel.copyWith(fontSize: 17.fS)),
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 160.dW),
+                      child: Text(
+                        book.info?.title ?? ' ',
+                        style: TextStyles.mainLabel.copyWith(fontSize: 17.fS),
+                      ),
+                    ),
                     SizedBox(height: 6.dH),
                     Row(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
                           Icons.star,
@@ -70,25 +81,36 @@ class BookCard extends StatelessWidget {
                         ),
                         SizedBox(width: 6.dW),
                         Text(
-                          averageRating,
+                          book.info?.averageRating.toString() ?? '-',
                           style: TextStyles.text,
                         ),
                       ],
                     ),
                     SizedBox(height: 17.dH),
-                    MainCategoryLabel(mainCategory: mainCategory),
+                    if (book.info!.categories!.isNotEmpty)
+                      MainCategoryLabel(
+                          mainCategory: book.info!.categories![0]),
                   ],
                 ),
               ],
             ),
           ),
         ),
-        Positioned(
-          right: 0,
-          bottom: 22.dH,
-          child: LikeBtn(onLike: onLike, isFavorite: isFavorite),
-        ),
+        if (showLikeBtn)
+          Positioned(
+            right: 0,
+            bottom: 22.dH,
+            child:
+                LikeBtn(onLike: onLike, isFavorite: book.isFavorite ?? false),
+          ),
       ],
     );
+  }
+
+  String get _buildAuthorsString {
+    final String authors = book.info!.authors!.isNotEmpty
+        ? book.info!.authors!.toString().replaceAll("[", "").replaceAll("]", "")
+        : 'anonymous';
+    return authors;
   }
 }
