@@ -70,19 +70,19 @@ class BottomTabSelector extends StatelessWidget {
     }
     return BottomNavigationBarItem(
       icon: icon!,
-      // label: title,
+      label: title,
       //? En caso de usar la propiedad Title
-      title: Padding(
-        padding: EdgeInsets.only(top: 3.0.dH),
-        child: Text(
-          title!,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.dmSans(
-            fontWeight: FontWeight.w400,
-            fontSize: 15.fS,
-          ),
-        ),
-      ),
+      // title: Padding(
+      //   padding: EdgeInsets.only(top: 3.0.dH),
+      //   child: Text(
+      //     title!,
+      //     textAlign: TextAlign.center,
+      //     style: GoogleFonts.dmSans(
+      //       fontWeight: FontWeight.w400,
+      //       fontSize: 15.fS,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
