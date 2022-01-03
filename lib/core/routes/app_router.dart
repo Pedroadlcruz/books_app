@@ -23,8 +23,8 @@ class AppRouter {
         return _buildPage(const AuthWrapper());
       case LoginScreen.routeName:
         return _buildPage(const LoginScreen());
-      case RegisterScreen.routeName:
-        return _buildPage(const RegisterScreen());
+      case SignUpScreen.routeName:
+        return _buildPage(const SignUpScreen());
       case ForgotPasswordScreen.routeName:
         return _buildPage(const ForgotPasswordScreen());
       case HomeScreen.routeName:

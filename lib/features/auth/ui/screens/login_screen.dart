@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:provider/provider.dart';
 
 import 'package:take_home_project/core/constants/strings.dart';
@@ -24,7 +25,21 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child:
+
+            // SizedBox(
+            //   height: 100.h,
+            //   width: 100.w,
+            //   child: RegisterScreen(
+            //     providerConfigs: [
+            //       GoogleProviderConfiguration(
+            //         clientId:
+            //             "551970385340-nhcp7vqe8mejdqjbn17um3n9oplig1o3.apps.googleusercontent.com",
+            //       )
+            //     ],
+            //   ),
+            // ),
+            Column(
           children: [
             SizedBox(height: 113.dH),
             Text(Strings.login, style: TextStyles.mainLabel),
@@ -44,8 +59,8 @@ class LoginScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, RegisterScreen.routeName, (route) => false);
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context, SignUpScreen.routeName, (route) => false);
               },
               child: RichText(
                 text: TextSpan(
@@ -109,8 +124,8 @@ class _LoginForm extends StatelessWidget {
             ),
             SizedBox(height: 49.dH),
             InkWell(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
+                // onTap: () => Navigator.pushNamed(
+                //     context, ForgotPasswordScreen.routeName),
                 child: Text(Strings.forgotPasswordBtn, style: TextStyles.text)),
             SizedBox(height: 38.dH),
             AppBtn(

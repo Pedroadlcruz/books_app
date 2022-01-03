@@ -39,13 +39,14 @@ dependencies:
   google_sign_in: ^5.1.0
   firebase_core: ^1.7.0
   firebase_core_web: ^1.1.0
-  
+  flutterfire_ui: ^0.3.0
  #State Management
   provider: ^6.0.1
 
   equatable: ^2.0.3
 
   http: ^0.13.3
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

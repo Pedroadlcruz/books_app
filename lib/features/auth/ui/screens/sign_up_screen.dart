@@ -18,8 +18,8 @@ import 'package:take_home_project/features/auth/ui/widgets/google_auth_btn.dart'
 import 'package:take_home_project/features/auth/ui/widgets/user_terms.dart';
 import 'package:take_home_project/features/home/ui/screens/home_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
   static const String routeName = 'register_screen';
 
   @override
