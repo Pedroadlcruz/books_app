@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:take_home_project/core/error/books_exceptions.dart';
 import 'package:take_home_project/features/books/models/book.dart';
@@ -123,12 +124,13 @@ class BooksBloc extends ChangeNotifier {
 
   Future<bool> _addToFavorites(Book book) async {
     try {
-      final result = await _booksRepository.addBook(book);
-      if (result.isNotEmpty) {
-        currentBook.uid = result;
-        favorites.add(currentBook);
-        notifyListeners();
-      }
+      final result = await _booksRepository.addFavoriteBook(book);
+      // final result = await _booksRepository.addBook(book);
+      // if (result.isNotEmpty) {
+      //   currentBook.uid = result;
+      //   favorites.add(currentBook);
+      //   notifyListeners();
+      // }
       return true;
     } on Exception {
       errorAddingfavorites = 'Unespected error while adding book';
@@ -136,6 +138,15 @@ class BooksBloc extends ChangeNotifier {
       return false;
     }
   }
+
+  final favoritesBooksQuery = FirebaseFirestore.instance
+      .collection('favorites-books')
+      .orderBy('id')
+      .withConverter<Book>(
+        fromFirestore: (snapshot, _) => Book.fromFirebaseJson(
+            snapshot.data()!), // User.fromJson(snapshot.data()!),
+        toFirestore: (book, _) => book.toFirebaseJson(),
+      );
 
   void toggleFavorite() {
     if (currentBook.isFavorite == null) {

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:take_home_project/core/error/books_exceptions.dart';
 import 'package:take_home_project/features/auth/bloc/auth_bloc.dart';
@@ -6,6 +8,8 @@ import 'package:take_home_project/features/books/models/book.dart';
 
 import 'package:take_home_project/features/books/models/response_model.dart';
 import 'package:take_home_project/features/books/repositories/books_repository.dart';
+import 'package:flutterfire_ui/firestore.dart';
+import 'package:flutterfire_ui/firestore.dart';
 
 class BooksRepositoryImpl implements BooksRepository {
   final String _baseFirebaseUrl = 'books-app-55b92-default-rtdb.firebaseio.com';
@@ -86,6 +90,19 @@ class BooksRepositoryImpl implements BooksRepository {
       } else {
         return '';
       }
+    } on Exception {
+      throw const QueryBooksFailure();
+    }
+  }
+
+  Future<DocumentReference> addFavoriteBook(Book book) {
+    // if (_loginState != ApplicationLoginState.loggedIn) {
+    //   throw Exception('Must be logged in');
+    // }
+    try {
+      return FirebaseFirestore.instance
+          .collection('favorites-books')
+          .add(book.toFirebaseJson());
     } on Exception {
       throw const QueryBooksFailure();
     }

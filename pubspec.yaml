@@ -46,6 +46,7 @@ dependencies:
   equatable: ^2.0.3
 
   http: ^0.13.3
+  cloud_firestore: ^3.1.5
   
 dev_dependencies:
   flutter_test:

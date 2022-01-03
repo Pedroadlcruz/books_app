@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:take_home_project/core/constants/app_images.dart';
 import 'package:take_home_project/core/constants/strings.dart';
@@ -22,21 +23,33 @@ class FavoritesScreen extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 36.dW),
-        child: Column(
-          children: [
-            SizedBox(height: 62.dH, width: double.infinity),
-            Text(
-              Strings.favorites,
-              style: TextStyles.mainLabel.copyWith(fontSize: 20.fS),
-            ),
-            SizedBox(height: 28.dH),
-            booksBloc.loadingFavorites
-                ? const Center(child: CircularProgressIndicator())
-                : _FavoritesView(booksBloc: booksBloc),
-          ],
+        padding: EdgeInsets.symmetric(horizontal: 9.w),
+        child: FirestoreListView<Book>(
+          query: booksBloc.favoritesBooksQuery,
+          itemBuilder: (context, snapshot) {
+            // Data is now typed!
+            // User user = snapshot.data();
+
+            return BookCard(book: snapshot.data());
+          },
         ),
       ),
+      // Padding(
+      //   padding: EdgeInsets.symmetric(horizontal: 36.dW),
+      //   child: Column(
+      //     children: [
+      //       SizedBox(height: 62.dH, width: double.infinity),
+      //       Text(
+      //         Strings.favorites,
+      //         style: TextStyles.mainLabel.copyWith(fontSize: 20.fS),
+      //       ),
+      //       SizedBox(height: 28.dH),
+      //       booksBloc.loadingFavorites
+      //           ? const Center(child: CircularProgressIndicator())
+      //           : _FavoritesView(booksBloc: booksBloc),
+      //     ],
+      //   ),
+      // ),
       bottomNavigationBar: const BottomTabSelector(),
     );
   }
